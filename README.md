@@ -13,6 +13,6 @@ Le but de ce projet est de prendre en main Zend 2.5.1 via la création d'un site
 
 ## Screenshot
 
-![Alt text](/aliceedn/piz-aioli/blob/master/public/img/screenshot_accueil.PNG?raw=true "Piz-aioli page d'accueil")
+![Alt text](/aliceedn/piz-aioli/blob/master/public/img/screenshot_accueil.PNG "Piz-aioli page d'accueil")
 
 ## Merci
