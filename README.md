@@ -1,14 +1,18 @@
-# piz-aioli_beziers
-## Framework : Zend 2.5.1
+# Piz'aioli Béziers
 
-## Backend :
-### Accès à l'admin via : /backend (admin@pizzaioli.fr 123456)
-### Filtre accès par role admin/user via ACL fait
-### CRUD pizza : Ajout suppression de pizza ok le reste pas fait
-### Edition des infos de la société
+Projet en cours ...
 
-## Frontend :
-### Création compte utilisateur
-### Login compte utilisateur
-### Panier en ajax : ajoute de pizza, liste des pizza dans le panier + vidage du panier
-### Gestion de commande : pas fait
+---
+
+Le but de ce projet est de prendre en main Zend 2.5.1 via la création d'un site de vente en ligne de pizza
+
+## Installattion
+    
+    Importer la base de donnée pizzaioli.sql
+    Supprimer le repertoire DoctrineORMModule situé dans le répertoire data
+
+## Screenshot
+
+![Alt text](/aliceedn/piz-aioli/blob/master/public/img/screenshot_accueil.PNG?raw=true "Piz-aioli page d'accueil")
+
+## Merci
