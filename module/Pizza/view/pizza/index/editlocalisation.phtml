@@ -1,0 +1,72 @@
+<?php
+
+  $form = $this->form;
+
+      $form->prepare();
+
+    $form->setAttribute('action', $this->url());
+
+    echo $this->form()->openTag($form);
+
+?>
+<table>
+
+    <theader>
+
+        <h1>Éditer infos société :</h1>
+    </theader>
+    <tfoot>
+        <tr>
+            <td colspan="2">
+<?php echo $this->formSubmit($form->get('submit')); ?>
+            </td>
+        </tr>
+    </tfoot>
+    <tbody>
+    
+    <tr>
+        <th><?php echo $this->formLabel($form->get('adresse')); ?>
+        </th>
+        <td>
+            <p>
+<?php echo $this->formInput($form->get('adresse')); ?>
+
+            </p>    
+<?php echo $this->formElementErrors($form->get('adresse'), array('class' => 'error_list')); ?>
+        </td>
+
+    </tr>
+    <tr>
+        <th><?php echo $this->formLabel($form->get('numero_tel')); ?></th>
+        <td>
+            <p>
+<?php echo $this->formInput($form->get('numero_tel')); ?>
+
+            </p>
+<?php echo $this->formElementErrors($form->get('numero_tel'), array('class' => 'error_list')); ?>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th><?php echo $this->formLabel($form->get('email')); ?></th>
+        <td>
+            <p>
+<?php echo $this->formInput($form->get('email')); ?>
+
+            </p>
+<?php echo $this->formElementErrors($form->get('email'), array('class' => 'error_list')); ?>
+        </td>
+
+    </tr>
+    
+
+  
+
+</tbody>
+</table>
+            
+
+<?php echo $this->form()->closeTag();
+
+?>

@@ -1,0 +1,22 @@
+<table class="table">
+
+ <?php foreach ($membre as $user) : 
+     if($this->escapeHtml($user->getPhoto())){
+     $photo ="photo".$this->escapeHtml($user->getIdMembre()); 
+     }
+     else{
+     $photo = "defaut";}?>
+    <tr>
+     <td><?php echo $this->escapeHtml($user->getNom());?></td>
+     <td><?php echo $this->escapeHtml($user->getPrenom());?></td>
+     <td><?php echo $this->escapeHtml($user->getPseudo());?></td>
+     <td><?php echo $this->escapeHtml($user->getAdresse());?></td>
+     <td><?php echo $this->escapeHtml($user->getCodePostal());?></td>
+     <td><?php echo $this->escapeHtml($user->getSiteweb());?></td>
+     <td><img src="img/membre/<?php echo $photo;?>.jpg" alt=""></td>
+     <td><a href="membre/detail/<?php echo $this->escapeHtml($user->getIdMembre()); ?>">Détail</a></td>
+    </tr>
+
+ <?php endforeach; ?>
+
+</table>

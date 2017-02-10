@@ -1,0 +1,85 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('Pizzaioli ') ?>
+
+        <?php
+        echo $this->headMeta()
+                ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+                ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php
+        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                ->prependStylesheet($this->basePath() . '/css/style.css')
+                ->prependStylesheet($this->basePath() . '/css/bootflat/css/bootflat.min.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+        ?>
+
+        <!-- Scripts -->
+        <?php
+        echo $this->headScript()
+                ->prependFile($this->basePath() . '/js/popup.js')
+                ->prependFile($this->basePath() . '/js/site.min.js')
+                ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+                ->prependFile($this->basePath() . '/js/jquery.min.js')
+                ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                ->prependFile($this->basePath() . '/js/html5shiv.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+
+        ;
+        ?>
+
+    </head>
+    <body>
+        <header><img src="<?php echo ROOT_PATH . "../img/bannierepizzaioli.png" ?>" alt="banniere Pizzaioli"></header>
+        <p id="cart" onclick="mycart()"><img src="<?php echo ROOT_PATH . "../img/cart.png" ?>" alt="panier commande"></p>
+        <span class="badge cart"></span>
+        
+        <!-- Popup ajouter au panier -->
+        <div class="modal blur-effect" id="popup">
+            <div class="popup-content">
+                <h3>Ajouter au panier</h3>
+                <div>
+                    <p class="para">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                    <p><span class="btn btn-success popup-button" role="button">Modifier</span>
+                        <span class="btn btn-success popup-button lienadd" id="lienadd" role="button">Ajouter au panier</span></p>
+                    <div class="close"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Popup panier -->
+<div id="mycart">
+            <div class="mycart-content">
+                <h3>Contenu du panier</h3>
+                <div>
+                    <p class="para" id="listcart"></p>
+                    <p><span class="btn btn-success popup-button" role="button">Passer commande</span><span class="btn btn-success popup-button" onclick="emptycart()" role="button">Vider le panier</span></p>
+                    <div class="closecart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <nav vcenter>
+                <a href="/" class="btn btn-primary btn-danger col-lg-3"><span class="glyphicon glyphicon-home"></span> Accueil</a>
+                <a href="/cartepizzas" class="btn btn-primary btn-danger col-lg-3"><span class="glyphicon glyphicon-list-alt"></span> Nos pizzas</a>
+                <a href="/localisation" class="btn btn-primary btn-danger col-lg-3"><span class="glyphicon glyphicon-map-marker"></span> Venir nous voir</a>
+<?php if (isset($_SESSION['email'])) {
+    echo "<a href=\"/detail\" class=\"btn btn-primary btn-danger col-lg-3\"><span class=\"glyphicon glyphicon-user\"></span> Mon compte</a>";
+} else {
+    echo "<a href=\"/connect\" class=\"btn btn-primary btn-danger col-lg-3\"><span class=\"glyphicon glyphicon-user\"></span> Se connecter / S'inscrire</a>";
+} ?>
+            </nav>
+<?php echo $this->content; ?>
+        </div> <!-- /container -->
+                <script>            
+            cartnb = <?php echo count($_SESSION['panier']['pizza']); ?>;
+            $('.cart').append( cartnb ); 
+        </script>
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

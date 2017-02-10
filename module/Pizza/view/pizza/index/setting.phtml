@@ -1,0 +1,99 @@
+<?php
+$form = $this->form;
+$form->setAttribute('action0', $this->url('user'));
+$form->prepare();
+if ($this->escapeHtml($set->getPhoto())) {
+    $photo = "photo" . $this->escapeHtml($set->getIdMembre());
+} else {
+    $photo = "defaut";
+}
+?>
+<table>
+
+    <theader>
+
+        <h1>Modification :</h1>
+        <h2>Profil : </h2>
+    </theader>
+    <tfoot>
+        <tr>
+            <td colspan="2">
+<?php echo $this->formSubmit($form->get('submit')); ?>
+            </td>
+        </tr>
+    </tfoot>
+    <tbody>
+    <td><img src="../../img/membre/<?php echo $photo; ?>.jpg" alt=""></td>
+    <tr>
+        <th><?php echo $this->formLabel($form->get('name')); ?>
+        </th>
+        <td>
+            <p>
+<?php echo $this->formInput($form->get('name')); ?>
+
+            </p>    
+<?php echo $this->formElementErrors($form->get('name'), array('class' => 'error_list')); ?>
+        </td>
+
+    </tr>
+    <tr>
+        <th><?php echo $this->formLabel($form->get('prenon')); ?></th>
+        <td>
+            <p>
+<?php echo $this->formInput($form->get('prenon')); ?>
+
+            </p>
+<?php echo $this->formElementErrors($form->get('prenon'), array('class' => 'error_list')); ?>
+        </td>
+
+    </tr>
+    <tr>
+        <th><?php echo $this->formLabel($form->get('pseudo')); ?></th>
+        <td>
+            <p>
+<?php echo $this->formInput($form->get('pseudo')); ?>
+            </p>
+                <?php echo $this->formElementErrors($form->get('pseudo'), array('class' => 'error_list')); ?>
+            <a href="<?php echo password; ?>">Changer mot de passe</a>
+        </td>
+
+    </tr>
+
+    <tr>
+        <th><?php echo $this->formLabel($form->get('adresse')); ?></th>
+        <td>
+            <p>
+<?php echo $this->formInput($form->get('adresse')); ?>
+            </p>
+                <?php echo $this->formElementErrors($form->get('adresse'), array('class' => 'error_list')); ?>
+        </td>
+
+    </tr>
+    <tr>
+        <th><?php echo $this->formLabel($form->get('email')); ?></th>
+        <td>
+            <p>
+<?php echo $this->formInput($form->get('email')); ?>
+            </p>
+                <?php echo $this->formElementErrors($form->get('email'), array('class' => 'error_list')); ?>
+        </td>
+
+    </tr>
+    <tr>
+        <th><?php echo $this->formLabel($form->get('ville')); ?></th>
+        <td>
+            <p>
+<?php echo $this->formSelect($form->get('ville')); ?>
+            </p>
+
+<?php echo $this->formElementErrors($form->get('ville'), array('class' => 'error_list')); ?>
+            <a href="http://<?php echo $this->escapeHtml($set->getSiteweb())?>"> Site Web </a>
+                <?php echo $this->formSubmit($form->get('edit')); ?>                
+        </td>
+    </tr>
+
+</tbody>
+</table>
+<?php
+echo $this->form()->closeTag();
+?>                   

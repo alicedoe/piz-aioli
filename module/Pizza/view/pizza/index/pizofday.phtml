@@ -1,0 +1,28 @@
+
+<div id="pizofday" class="row">
+<div class="colonne col-lg-6">
+  <?php foreach ($listepizza_page as $pizza) : ?>
+  <p><img src="/img/img_pizzas/<?php echo $this->escapeHtml($pizza->getUrl_img()); ?>" alt="<?php echo $this->escapeHtml($pizza->getNom());?>"></p>
+
+  <p><span class="btn btn-success popup-button" onclick="popup(<?php echo $this->escapeHtml($pizza->getId());?>)" role="button">Commander</span></p>
+    </div>
+<div class="colonne col-lg-6">
+  <h1>Pizza du jour : <?php echo $this->escapeHtml($pizza->getNom());?></h1>
+
+  <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Les ingrédients</h3>
+                </div>
+                <ul class="list-group">
+                    
+                                        <?php foreach ($pizza->getIngredients() as $ingredient) : 
+    
+    echo "<span class=\"list-group-item\">" . $ingredient->getNom() . "</span>";
+ endforeach;
+?>
+                </ul>
+            </div>
+  <?php  endforeach; ?> 
+</div>
+</div>
