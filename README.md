@@ -14,15 +14,16 @@ Le but de ce projet est de prendre en main Zend 2.5.1 via la création d'un site
 
 ## TODO list
 
-[] Permettre aux clients de passer une commande
-[] Permettre aux clients d'envoyer un message
-[] Permettre aux clients de mettre à jour son compte
-[] Permettre aux clients de mettre une commande en favoris
-[] Permettre aux clients de programmer une commande favorite via le calendrier
-[] Backend : Permettre à l'admin de gérer le statut des commandes
-[] Backend : Ajout d'ingrédients pour les pizzas
-[] Backend : Sortir une pizza de la carte
-[] Backend : Mettre une pizza en vedette
+* [ ] Permettre aux clients de passer une commande
+* [ ] Permettre aux clients d'envoyer un message
+* [ ] Permettre aux clients de mettre à jour son compte
+* [ ] Permettre aux clients de mettre une commande en favoris
+* [ ] Permettre aux clients de programmer une commande favorite via le calendrier
+* [ ] Backend : Permettre à l'admin de gérer le statut des commandes
+* [ ] Backend : Ajout d'ingrédients pour les pizzas
+* [ ] Backend : Sortir une pizza de la carte
+* [ ] Backend : Mettre une pizza en vedette
+* [ ] Frontend : Améliorer l'esthétique des formulaires
 
 ## Screenshot
 
