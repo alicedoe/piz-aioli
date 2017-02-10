@@ -1,3 +1,17 @@
+.thumbnaildiv { height: 18em;
+    overflow: hidden; }
+
+.thumbnaildiv img {
+    height: 100%;
+    overflow: hidden;
+    display: block;
+    margin: 0 auto;
+}
+
+#ingredientslist{
+    height: 5em;
+}
+
 /*Panier*/
 
 #cart img {

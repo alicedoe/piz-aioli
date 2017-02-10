@@ -22,20 +22,24 @@
                 'name' => 'email',       // Nom du champ
                 'type' => 'Text',       // Type du champ
                 'attributes' => array(
-                    'id'    => 'email'   // Id du champ
+                    'id'    => 'email',
+                    'placeholder'  => 'Adresse email',
+                    'class' => 'form-control'
                 ),
                 'options' => array(
-                    'label' => 'email',   // Label à l'élément
+                    'label' => 'Adresse email',   // Label à l'élément
                 ),
             ));
                 $this->add(array(
                 'name' => 'password',       // Nom du champ
                 'type' => 'Text',       // Type du champ
                 'attributes' => array(
-                    'id'    => 'password'   // Id du champ
+                    'id'    => 'password',
+                    'placeholder'  => 'Mot de passe',
+                    'class' => 'form-control'
                 ),
                 'options' => array(
-                    'label' => 'password',   // Label à l'élément
+                    'label' => 'Mot de passe',   // Label à l'élément
                 ),
             ));
         
@@ -44,18 +48,20 @@
             // Le bouton Submit
             $this->add(array(
                 'name' => 'submit',        // Nom du champ
-                'type' => 'Submit',        // Type du champ
+                'type' => 'button',        // Type du champ
                 'attributes' => array(     // On va définir quelques attributs
                     'value' => 'Se connecter',  // comme la valeur
-                    'id' => 'submit',      // et l'id
+                    'id' => 'submit',
+                    'class' => 'btn btn-success'      // et l'id
                 ),
             ));
                         $this->add(array(
                 'name' => 'submit2',        // Nom du champ
-                'type' => 'Submit',        // Type du champ
+                'type' => 'button',        // Type du champ
                 'attributes' => array(     // On va définir quelques attributs
                     'value' => 'Créer un compte',  // comme la valeur
-                    'id' => 'submit',      // et l'id
+                    'id' => 'submit',
+                    'class' => 'btn btn-success'
                 ),
             ));
         }

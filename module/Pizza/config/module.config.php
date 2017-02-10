@@ -116,6 +116,16 @@ return array(
                             ),
                         ),
                     ),
+                    'editpizza' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/editpizza',
+                            'defaults' => array(
+                                'controller' => 'Pizza\Controller\Editcarte',
+                                'action' => 'editpizza',
+                            ),
+                        ),
+                    ),
                     'gestioncommandes' => array(
                         'type' => 'literal',
                         'options' => array(
@@ -226,6 +236,7 @@ return array(
             'pizza/log/adduser' => __DIR__ . '/../view/pizza/index/register.phtml',
             'pizza/membre/detail' => __DIR__ . '/../view/pizza/index/detail.phtml',
             'pizza/editcarte/index' => __DIR__ . '/../view/pizza/index/editcarte.phtml',
+            'pizza/editcarte/editpizza' => __DIR__ . '/../view/pizza/index/editpizza.phtml',
             'pizza/editcarte/admincartepizzas' => __DIR__ . '/../view/pizza/index/adminpizza.phtml',
             'pizza/admincommandes/editlocalisation' => __DIR__ . '/../view/pizza/index/editlocalisation.phtml',
             'pizza/gestioncommandes/index' => __DIR__ . '/../view/pizza/index/gestioncommandes.phtml',

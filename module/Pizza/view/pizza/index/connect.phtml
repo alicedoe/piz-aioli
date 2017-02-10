@@ -1,4 +1,6 @@
-
+<div class="page-header text-center">
+    <h1>Se connecter à mon compte</h1>
+</div>
 <?php
   $form = $this->form;
       $form->prepare();
@@ -6,50 +8,20 @@
     echo $this->form()->openTag($form);
     echo $this->formHidden($form->get('id_membre'));
 ?>
-<table>
-
-    <theader>
-
-        <h1>Connexion :</h1>
-    </theader>
-    <tfoot>
-        <tr>
-            <td colspan="2">
-<?php echo $this->formSubmit($form->get('submit')); ?>
-            </td>
-        </tr>
-    </tfoot>
-    <tbody>
+<form>
+    <div class="form-group">
+        <label for="inputEmail"><?php echo $this->formLabel($form->get('email')); ?></label>
+        <?php echo $this->formInput($form->get('email')); ?>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword"><?php echo $this->formLabel($form->get('password')); ?></label>
+        <?php echo $this->formInput($form->get('password')); ?>
+    </div>
     
-    <tr>
-        <th><?php echo $this->formLabel($form->get('email')); ?>
-        </th>
-        <td>
-            <p>
-<?php echo $this->formInput($form->get('email')); ?>
-
-            </p>    
-<?php echo $this->formElementErrors($form->get('email'), array('class' => 'error_list')); ?>
-        </td>
-
-    </tr>
-    <tr>
-        <th><?php echo $this->formLabel($form->get('password')); ?></th>
-        <td>
-            <p>
-<?php echo $this->formInput($form->get('password')); ?>
-
-            </p>
-<?php echo $this->formElementErrors($form->get('password'), array('class' => 'error_list')); ?>
-        </td>
-
-    </tr>
-  
-
-</tbody>
-</table>
+    <?php echo $this->formSubmit($form->get('submit')); ?>
 <?php
-echo $this->form()->closeTag();
-?> 
+echo $this->form()->closeTag(); ?>
 
-<a class="btn btn-success popup-button" href="/register" role="button">S'inscrire</a>
+<div class="row text-center">
+  Si vous n'avez pas de compte : <a href="/register">cliquez ici pour vous inscrire</a>
+</div>

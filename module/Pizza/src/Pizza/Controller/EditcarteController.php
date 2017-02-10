@@ -22,6 +22,13 @@ class EditcarteController extends AbstractActionController {
             'listepizza_page' => $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->cartepizzas(),
         ));
     }
+    
+    public function editpizzaAction() {
+
+        return new ViewModel(array(
+            'listepizza_page' => $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->cartepizzas(),
+        ));
+    }
     public function indexAction() {
         $viewData = array();
 
