@@ -24,8 +24,7 @@ class MyAclPlugin extends AbstractPlugin {
     public function doAuthorization($e) {
         session_start();
 
-        if (isset($_SESSION['role']))
-            $sesscontainer->role = $_SESSION['role'];
+        if (isset($_SESSION['role'])) $sesscontainer->role = $_SESSION['role'];
         // set ACL
         $acl = new Acl();
         $acl->deny(); // on by default
