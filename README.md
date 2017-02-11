@@ -15,6 +15,7 @@ Le but de ce projet est de prendre en main Zend 2.5.1 via la création d'un site
 ## Installation
 - Importer la base de donnée pizzaioli.sql
 - Supprimer le repertoire DoctrineORMModule situé dans le répertoire data
+- Editer le fichier /config/doctrine.local.php pour les infos de votre base de donnée
 
 ## Description
 - Accès au backend via /backend
