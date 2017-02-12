@@ -34,29 +34,47 @@ class LogController extends AbstractActionController {
     }
 
     public function adduserAction() {
+        
         if ($this->getRequest()->isPost()) {
-            echo"toto";
             $newuser = new \Pizza\Entity\TbUsers();
             $dataForm = $this->getRequest()->getPost();
-
+            
+            $userexist = $this->service->getRepository('Pizza\Entity\TbUsers')->findOneBy(array('email' => $dataForm['email']));
+            
+            if (count($userexist) == 0) {
+            
+            $ville = $this->service->getRepository('\Pizza\Entity\TbVilles')->find($dataForm['ville']);
+            
+            $newuser->setVille($ville);
             $newuser->setEmail($dataForm['email']);
             $newuser->setPassword($dataForm['password']);
+            $newuser->setPrenom($dataForm['prenom']);
+            $newuser->setNumrue($dataForm['numrue']);
+            $newuser->setNom($dataForm['nom']);
             $newuser->setRole("user");
+            
             $this->service->persist($newuser);
             $this->service->flush();
 
             $request = $this->service->getRepository('Pizza\Entity\TbUsers')->findOneBy(array('email' => $dataForm['email']));
-print_r($request);
-                $_SESSION['userId'] = $request->getUser_id();
+
+                $_SESSION['userId'] = $request->getUserId();
                 $_SESSION['email'] = $request->getEmail();
                 $_SESSION['role'] = $request->getRole();
                 return $this->redirect()->toRoute('index');
+            }
+            
+            
  
         }
-
-        $form = new LogForm($this->service);
+        
+        elseif (isset($_SESSION['userId'])) { return $this->redirect()->toRoute('userdetail'); } else {
+       $form = new LogForm($this->service);
         $viewData['form'] = $form;
         return new ViewModel($viewData);
+            }
+
+       
     }
 
 }

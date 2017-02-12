@@ -6,7 +6,7 @@
     // Notre class CategoryForm étend l'élément \Zend\Form\Form; 
     class LogForm extends Form
     {
-        public function __construct()
+        public function __construct($objectManager)
         {   
           
             parent::__construct('Log');
@@ -19,6 +19,7 @@
             
             // Le champs name, de type Text
             $this->add(array(
+                'required'=>true,
                 'name' => 'email',       // Nom du champ
                 'type' => 'Text',       // Type du champ
                 'attributes' => array(
@@ -31,6 +32,7 @@
                 ),
             ));
             $this->add(array(
+                'required'=>true,
                 'name' => 'numrue',       // Nom du champ
                 'type' => 'Text',       // Type du champ
                 'attributes' => array(
@@ -43,6 +45,7 @@
                 ),
             ));
             $this->add(array(
+                'required'=>true,
                 'name' => 'nom',       // Nom du champ
                 'type' => 'Text',       // Type du champ
                 'attributes' => array(
@@ -55,6 +58,7 @@
                 ),
             ));
             $this->add(array(
+                'required'=>true,
                 'name' => 'prenom',       // Nom du champ
                 'type' => 'Text',       // Type du champ
                 'attributes' => array(
@@ -67,19 +71,19 @@
                 ),
             ));
             $this->add(array(
-                'name' => 'cp',       // Nom du champ
-                'type' => 'Text',       // Type du champ
-                'attributes' => array(
-                    'id'    => 'cp',
-                    'placeholder'  => 'Code postal et ville',
-                    'class' => 'form-control'
-                ),
-                'options' => array(
-                    'label' => 'Code postal et ville',   // Label à l'élément
-                ),
-            ));
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'ville',
+            'options' => array(
+                'label' => 'Ville',
+                'placeholder'  => 'Ville',
+                'object_manager' => $objectManager,
+                'target_class' => 'Pizza\Entity\TbVilles',
+                'property' => 'nom'
+            )
+        ));
            
                 $this->add(array(
+                'required'=>true,
                 'name' => 'password',       // Nom du champ
                 'type' => 'Text',       // Type du champ
                 'attributes' => array(
