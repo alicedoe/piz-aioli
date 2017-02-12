@@ -1,76 +1,75 @@
 <?php
 
 namespace Pizza\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 
-/** @ORM\Table(name="tb_users") 
- * @ORM\Entity(repositoryClass="Pizza\Repository\Repository") */
-
+/**
+ * TbUsers
+ *
+ * @ORM\Table(name="tb_users", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_7E68F519E7927C74", columns={"email"})}, indexes={@ORM\Index(name="villeNomReel", columns={"villeNomReel"})})
+ * @ORM\Entity
+ */
 class TbUsers
 {
     /**
-    * @ORM\Id
-    * @ORM\GeneratedValue(strategy="AUTO")
-    * @ORM\Column(type="integer", length=11)
-    */
-    protected $user_id;
-    
-    /** @ORM\Column(type="string", length=255, unique=true) */
-    protected $email;
-    
-    /** @ORM\Column(type="string", length=10) */
-    protected $role;
-    
-    /** @ORM\Column(type="string", length=128) */
-    protected $password;
-    
-    /** @ORM\Column(type="string", length=128) */
-    protected $nom;
-    
-    /** @ORM\Column(type="string", length=128) */
-    protected $prenom;
-    
-    /** @ORM\Column(type="string", length=128) */
-    protected $numrue;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="CpVilles", cascade={"persist"})
-     * @ORM\JoinColumn(name="villeNomReel", referencedColumnName="villeId")
+     * @var integer
+     *
+     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $villeNomReel;
-    
-    function getUser_id() {
-        return $this->user_id;
-    }
+    private $userId;
 
-    function getEmail() {
-        return $this->email;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     */
+    private $email;
 
-    function getRole() {
-        return $this->role;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="role", type="string", length=10, nullable=false)
+     */
+    private $role;
 
-    function getPassword() {
-        return $this->password;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=128, nullable=false)
+     */
+    private $password;
 
-    function setUser_id($user_id) {
-        $this->user_id = $user_id;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=128, nullable=false)
+     */
+    private $nom;
 
-    function setEmail($email) {
-        $this->email = $email;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=128, nullable=false)
+     */
+    private $prenom;
 
-    function setRole($role) {
-        $this->role = $role;
-    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numrue", type="string", length=128, nullable=false)
+     */
+    private $numrue;
 
-    function setPassword($password) {
-        $this->password = $password;
-    }
-
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="villeNomReel", type="integer", nullable=true)
+     */
+    private $villenomreel;
 
 
 }
+
