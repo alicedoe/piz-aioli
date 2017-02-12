@@ -1,5 +1,61 @@
-<table><tr><td><?php echo $this->escapeHtml($detail->getUser_id());?></td>
-     <td><?php echo $this->escapeHtml($detail->getEmail());?></td>
-     <td><?php echo $this->escapeHtml($detail->getRole());?></td></tr></table>
+  <div class="row">
+    <div class="form-horizontal col-sm-6">
+        <fieldset>
+          <legend>Vos informations personnelles</legend>
+          
+          <div class="form-group">
+            <label class="col-sm-6 control-label" for="textinput">Votre email</label>
+            <div class="col-sm-6">
+              <?php echo $this->escapeHtml($detail->getEmail());?>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="col-sm-6 control-label" for="textinput">Votre nom</label>
+            <div class="col-sm-6">
+              ------------
+            </div>
+            </div>
+          
+          <div class="form-group">
+            <label class="col-sm-6 control-label" for="textinput">Votre prenom</label>
+            <div class="col-sm-6">
+              --------------
+            </div>
+          </div>
+          
+        </fieldset>
+        <fieldset>
+          <legend>Votre adresse</legend>
+          <div class="form-group">
+            <label class="col-sm-6 control-label" for="textinput">Numéro et nom de rue</label>
+            <div class="col-sm-6">
+             --------------
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-6 control-label" for="textinput">Votre code postal</label>
+            <div class="col-sm-6">
+             -----------------
+            </div>
+          </div>
+                    <div class="form-group">
+            <label class="col-sm-6 control-label" for="textinput">Votre ville</label>
+            <div class="col-sm-6">
+              -----------------
+            </div>
+          </div>
+        </fieldset>
+    </div><!-- /.col-lg-12 -->
+    
+    <div class="form-horizontal col-sm-6">
+        <fieldset>
+          <legend>Mes commandes</legend>
+          
+          
+        </fieldset>
+    </div><!-- /.col-lg-12 -->
+</div><!-- /.row -->
 
-<a class="btn btn-success" href="/disconnect" role="button">Se deconnecter</a>
+<a class="btn btn-default col-sm-6 center-block" href="#" role="button">Editer mes informations</a>
+<a class="btn btn-success col-sm-6 center-block" href="/disconnect" role="button">Se deconnecter</a>

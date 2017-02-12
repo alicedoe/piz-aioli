@@ -24,6 +24,21 @@ class TbUsers
     /** @ORM\Column(type="string", length=128) */
     protected $password;
     
+    /** @ORM\Column(type="string", length=128) */
+    protected $nom;
+    
+    /** @ORM\Column(type="string", length=128) */
+    protected $prenom;
+    
+    /** @ORM\Column(type="string", length=128) */
+    protected $numrue;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="CpVilles", cascade={"persist"})
+     * @ORM\JoinColumn(name="villeNomReel", referencedColumnName="villeId")
+     */
+    protected $villeNomReel;
+    
     function getUser_id() {
         return $this->user_id;
     }

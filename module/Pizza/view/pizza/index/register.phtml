@@ -1,25 +1,65 @@
-<div class="page-header text-center">
-    <h1>Créer un compte Piz'aoli</h1>
-</div>
-<?php
+
+    <div class="row">
+    <div class="form-horizontal">
+      <?php
   $form = $this->form;
       $form->prepare();
     $form->setAttribute('action', $this->url('register'));
     echo $this->form()->openTag($form);
 ?>
-<form>
-    <div class="form-group">
-        <label for="inputEmail"><?php echo $this->formLabel($form->get('email')); ?></label>
-        <?php echo $this->formInput($form->get('email')); ?>
-    </div>
-    <div class="form-group">
-        <label for="inputPassword"><?php echo $this->formLabel($form->get('password')); ?></label>
-        <?php echo $this->formInput($form->get('password')); ?>
-    </div>
-    
-    <?php echo $this->formSubmit($form->get('submit2')); ?>
+        <fieldset>
+          <legend>Vos informations personnelles</legend>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput"><?php echo $this->formLabel($form->get('email')); ?></label>
+            <div class="col-sm-10">
+              <?php echo $this->formInput($form->get('email')); ?>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput"><?php echo $this->formLabel($form->get('password')); ?></label>
+            <div class="col-sm-10">
+              <?php echo $this->formInput($form->get('password')); ?>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput"><?php echo $this->formLabel($form->get('nom')); ?></label>
+            <div class="col-sm-4">
+              <?php echo $this->formInput($form->get('nom')); ?>
+            </div>
+
+            <label class="col-sm-2 control-label" for="textinput"><?php echo $this->formLabel($form->get('prenom')); ?></label>
+            <div class="col-sm-4">
+              <?php echo $this->formInput($form->get('prenom')); ?>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Votre adresse</legend>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput"><?php echo $this->formLabel($form->get('numrue')); ?></label>
+            <div class="col-sm-10">
+              <?php echo $this->formInput($form->get('numrue')); ?>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput"><?php echo $this->formLabel($form->get('cp')); ?></label>
+            <div class="col-sm-10">
+              <?php echo $this->formInput($form->get('cp')); ?>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <div class="pull-right">
+                <?php echo $this->formSubmit($form->get('submit2')); ?>
+              </div>
+            </div>
+          </div>
+
+        </fieldset>
 <?php
 echo $this->form()->closeTag(); ?>
+    </div><!-- /.col-lg-12 -->
+</div><!-- /.row -->
 
 <div class="row text-center">
   Si vous avez déjà un compte : <a href="/connect">cliquez ici pour vous connecter</a>
