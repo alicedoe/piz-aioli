@@ -7,9 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TbUsers
  *
- * @ORM\Table(name="tb_users", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_7E68F519E7927C74", columns={"email"})}, indexes={@ORM\Index(name="villeNomReel", columns={"villeNomReel"})})
- * @ORM\Entity
- */
+ * @ORM\Table(name="tb_users") 
+ * @ORM\Entity(repositoryClass="Pizza\Repository\Repository") */
 class TbUsers
 {
     /**
@@ -64,11 +63,78 @@ class TbUsers
     private $numrue;
 
     /**
-     * @var integer
+     * @var \Pizza\Entity\TbVilles
      *
-     * @ORM\Column(name="villeNomReel", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Pizza\Entity\TbVilles")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ville", referencedColumnName="id")
+     * })
      */
-    private $villenomreel;
+    private $ville;
+
+    function getUserId() {
+        return $this->userId;
+    }
+
+    function getEmail() {
+        return $this->email;
+    }
+
+    function getRole() {
+        return $this->role;
+    }
+
+    function getPassword() {
+        return $this->password;
+    }
+
+    function getNom() {
+        return $this->nom;
+    }
+
+    function getPrenom() {
+        return $this->prenom;
+    }
+
+    function getNumrue() {
+        return $this->numrue;
+    }
+
+    function getVille(): \Pizza\Entity\TbVilles {
+        return $this->Ville;
+    }
+
+    function setUserId($userId) {
+        $this->userId = $userId;
+    }
+
+    function setEmail($email) {
+        $this->email = $email;
+    }
+
+    function setRole($role) {
+        $this->role = $role;
+    }
+
+    function setPassword($password) {
+        $this->password = $password;
+    }
+
+    function setNom($nom) {
+        $this->nom = $nom;
+    }
+
+    function setPrenom($prenom) {
+        $this->prenom = $prenom;
+    }
+
+    function setNumrue($numrue) {
+        $this->numrue = $numrue;
+    }
+
+    function setVille(\Pizza\Entity\TbVilles $ville) {
+        $this->ville = $ville;
+    }
 
 
 }
