@@ -63,15 +63,11 @@ class TbUsers
     private $numrue;
 
     /**
-     * @var \Pizza\Entity\TbVilles
-     *
-     * @ORM\ManyToOne(targetEntity="Pizza\Entity\TbVilles")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ville", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity="TbVilles", cascade={"persist"})
+     * @ORM\JoinColumn(name="ville", referencedColumnName="id", nullable=false)
      */
     private $ville;
-
+    
     function getUserId() {
         return $this->userId;
     }
@@ -100,8 +96,8 @@ class TbUsers
         return $this->numrue;
     }
 
-    function getVille(): \Pizza\Entity\TbVilles {
-        return $this->Ville;
+    function getVille() {
+        return $this->ville;
     }
 
     function setUserId($userId) {
@@ -132,10 +128,9 @@ class TbUsers
         $this->numrue = $numrue;
     }
 
-    function setVille(\Pizza\Entity\TbVilles $ville) {
+    function setVille($ville) {
         $this->ville = $ville;
     }
-
 
 }
 

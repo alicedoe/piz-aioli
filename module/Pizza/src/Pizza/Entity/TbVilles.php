@@ -1,24 +1,18 @@
 <?php
 
 namespace Pizza\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * TbVilles
- *
- * @ORM\Table(name="tb_villes")
- * @ORM\Entity
- */
+/** @ORM\Table(name="tb_villes") 
+ * @ORM\Entity(repositoryClass="Pizza\Repository\Repository") */
+
 class TbVilles
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    * @ORM\Id
+    * @ORM\GeneratedValue(strategy="AUTO")
+    * @ORM\Column(type="integer", length=11)
+    */
     private $id;
 
     /**
@@ -57,23 +51,6 @@ class TbVilles
     function getCodepostal() {
         return $this->codepostal;
     }
-
-    function setId($id) {
-        $this->id = $id;
-    }
-
-    function setDepartementId($departementId) {
-        $this->departementId = $departementId;
-    }
-
-    function setNom($nom) {
-        $this->nom = $nom;
-    }
-
-    function setCodepostal($codepostal) {
-        $this->codepostal = $codepostal;
-    }
-
 
 }
 

@@ -35,8 +35,6 @@ class TbPizzaPatron {
      */
     protected $base;
 
-    
-
     /** @ORM\Column(type="boolean", length=1) */
     protected $pizofday;
 

@@ -21,7 +21,7 @@ class LogController extends AbstractActionController {
 
             $request = $this->service->getRepository('Pizza\Entity\TbUsers')->findOneBy(array('email' => $dataForm['email'], 'password' => $dataForm['password']));
             if ($request) {
-                $_SESSION['userId'] = $request->getUser_id();
+                $_SESSION['userId'] = $request->getUserId();
                 $_SESSION['email'] = $request->getEmail();
                 $_SESSION['role'] = $request->getRole();
                 return $this->redirect()->toRoute('index');

@@ -13,14 +13,14 @@
           <div class="form-group">
             <label class="col-sm-6 control-label" for="textinput">Votre nom</label>
             <div class="col-sm-6">
-              ------------
+              <?php echo $this->escapeHtml($detail->getNom());?>
             </div>
             </div>
           
           <div class="form-group">
             <label class="col-sm-6 control-label" for="textinput">Votre prenom</label>
             <div class="col-sm-6">
-              --------------
+              <?php echo $this->escapeHtml($detail->getPrenom());?>
             </div>
           </div>
           
@@ -30,7 +30,7 @@
           <div class="form-group">
             <label class="col-sm-6 control-label" for="textinput">Numéro et nom de rue</label>
             <div class="col-sm-6">
-             --------------
+             <?php echo $this->escapeHtml($detail->getNumrue());?>
             </div>
           </div>
           <div class="form-group">
@@ -42,11 +42,11 @@
                     <div class="form-group">
             <label class="col-sm-6 control-label" for="textinput">Votre ville</label>
             <div class="col-sm-6">
-              -----------------
+             <?php echo $this->escapeHtml($detail->getVille()->getNom()) ?>
             </div>
           </div>
         </fieldset>
-    </div><!-- /.col-lg-12 -->
+    </div>
     
     <div class="form-horizontal col-sm-6">
         <fieldset>
