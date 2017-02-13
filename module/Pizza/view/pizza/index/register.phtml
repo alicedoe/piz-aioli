@@ -27,12 +27,13 @@
               <?php echo $this->formInput($form->get('nom')); ?>
             </div>
             <?php echo $this->formElementErrors($form->get('nom'), array('class' => 'error_list'));?>
-
+            
             <label class="col-sm-2 control-label" for="textinput"><?php echo $this->formLabel($form->get('prenom')); ?></label>
             <div class="col-sm-4">
               <?php echo $this->formInput($form->get('prenom')); ?>
-                <?php echo $this->formElementErrors($form->get('prenom'), array('class' => 'error_list'));?>
+                
             </div>
+             <?php echo $this->formElementErrors($form->get('prenom'), array('class' => 'error_list'));?>
           </div>
         </fieldset>
         <fieldset>

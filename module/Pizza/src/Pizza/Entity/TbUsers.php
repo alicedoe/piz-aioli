@@ -11,69 +11,88 @@ use Zend\InputFilter\InputFilter;
  *
  * @ORM\Table(name="tb_users") 
  * @ORM\Entity(repositoryClass="Pizza\Repository\Repository") */
-class TbUsers  implements InputFilterAwareInterface
-{
-    
-    public function setInputFilter(\Zend\InputFilter\InputFilterInterface $inputFilter)
-    {
+class TbUsers implements InputFilterAwareInterface {
+
+    public function setInputFilter(\Zend\InputFilter\InputFilterInterface $inputFilter) {
         $this->inputFilter = $inputFilter;
     }
-    
+
     // La méthode qui nous intéresse
-    public function getInputFilter()
-    {
+    public function getInputFilter() {
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
             $inputFilter->add(
-                array(
-                    'name'     => 'nom',               // Le nom du champ / de la propriété
-                    'required' => true,                 // Champ requis
-                    'filters'  => array(                // Différents filtres:
-                        array('name' => 'StripTags'),   // Pour retirer les tags HTML
-                        array('name' => 'StringTrim'),  // Pour supprimer les espaces avant et apres le nom
-                    ),
-                    'validators' => array(              // Des validateurs
-                        array(
-                            'name'    => 'StringLength',// Pour vérifier la longueur du nom
-                            'options' => array(
-                                'encoding' => 'UTF-8',  // La chaine devra être en UTF-8
-                                'min'      => 5,        // et une longueur entre 1 et 100
-                                'max'      => 30,
+                    array(
+                        'name' => 'nom', // Le nom du champ / de la propriété
+                        'required' => true, // Champ requis
+                        'filters' => array(// Différents filtres:
+                            array('name' => 'StripTags'), // Pour retirer les tags HTML
+                            array('name' => 'StringTrim'), // Pour supprimer les espaces avant et apres le nom
+                        ),
+                        'validators' => array(// Des validateurs
+                            array(
+                                'name' => 'StringLength', // Pour vérifier la longueur du nom
+                                'options' => array(
+                                    'encoding' => 'UTF-8', // La chaine devra être en UTF-8
+                                    'min' => 5, // et une longueur entre 1 et 100
+                                    'max' => 30,
+                                ),
                             ),
                         ),
-                    ),
-                )
+                    )
             );
             $inputFilter->add(
-                array(
-                    'name'     => 'prenom',               // Le nom du champ / de la propriété
-                    'required' => true,                 // Champ requis
-                    'filters'  => array(                // Différents filtres:
-                        array('name' => 'StripTags'),   // Pour retirer les tags HTML
-                        array('name' => 'StringTrim'),  // Pour supprimer les espaces avant et apres le nom
-                    ),
-                    'validators' => array(              // Des validateurs
-                        array(
-                            'name'    => 'StringLength',// Pour vérifier la longueur du nom
-                            'options' => array(
-                                'encoding' => 'UTF-8',  // La chaine devra être en UTF-8
-                                'min'      => 5,        // et une longueur entre 1 et 100
-                                'max'      => 30,
+                    array(
+                        'name' => 'prenom', // Le nom du champ / de la propriété
+                        'required' => true, // Champ requis
+                        'filters' => array(// Différents filtres:
+                            array('name' => 'StripTags'), // Pour retirer les tags HTML
+                            array('name' => 'StringTrim'), // Pour supprimer les espaces avant et apres le nom
+                        ),
+                        'validators' => array(// Des validateurs
+                            array(
+                                'name' => 'StringLength', // Pour vérifier la longueur du nom
+                                'options' => array(
+                                    'encoding' => 'UTF-8', // La chaine devra être en UTF-8
+                                    'min' => 5, // et une longueur entre 1 et 100
+                                    'max' => 30,
+                                ),
                             ),
                         ),
-                    ),
-                )
+                    )
             );
-    
+            $this->add(
+                    array(
+                        'name' => 'email',
+                        'required' => true,
+                        'validators' => array(
+                            array(
+                                'name' => 'email',
+                                'options' => array(
+                                    'message' => array(
+                                        \Zend\Validator\EmailAddress::INVALID => "Invalid type given. String expected",
+                                        \Zend\Validator\EmailAddress::INVALID_FORMAT => "The input is not a valid email address. Use the basic format local-part@hostname",
+                                        \Zend\Validator\EmailAddress::INVALID_HOSTNAME => "'%hostname%' is not a valid hostname for the email address",
+                                        \Zend\Validator\EmailAddress::INVALID_MX_RECORD => "'%hostname%' does not appear to have any valid MX or A records for the email address",
+                                        \Zend\Validator\EmailAddress::INVALID_SEGMENT => "'%hostname%' is not in a routable network segment. The email address should not be resolved from public network",
+                                        \Zend\Validator\EmailAddress::DOT_ATOM => "'%localPart%' can not be matched against dot-atom format",
+                                        \Zend\Validator\EmailAddress::QUOTED_STRING => "'%localPart%' can not be matched against quoted-string format",
+                                        \Zend\Validator\EmailAddress::INVALID_LOCAL_PART => "'%localPart%' is not a valid local part for the email address",
+                                        \Zend\Validator\EmailAddress::LENGTH_EXCEEDED => "The input exceeds the allowed length",
+                                    ),
+                                ),
+                            ),
+                        ),
+            ));
+
             $this->inputFilter = $inputFilter;
         }
-    
+
         return $this->inputFilter;
     }
-    
-    public function exchangeArray($data)
-    {
+
+    public function exchangeArray($data) {
         $this->userId = (isset($data['userId'])) ? $data['userId'] : null;
         $this->email = (isset($data['email'])) ? $data['email'] : null;
         $this->password = (isset($data['password'])) ? $data['password'] : null;
@@ -139,7 +158,7 @@ class TbUsers  implements InputFilterAwareInterface
      * @ORM\JoinColumn(name="ville", referencedColumnName="id", nullable=false)
      */
     private $ville;
-    
+
     function getUserId() {
         return $this->userId;
     }
@@ -205,4 +224,3 @@ class TbUsers  implements InputFilterAwareInterface
     }
 
 }
-

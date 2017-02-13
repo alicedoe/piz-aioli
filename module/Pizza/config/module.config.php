@@ -169,19 +169,6 @@ return array(
                     ),
                 ),
             ),
-//            'user' => array(
-//                'type' => 'Segment',
-//                'options' => array(
-//                    'route' => '/membre/setting[/:id]',
-//                    'constraints' => array(
-//                        'id' => '[0-9]+',
-//                    ),
-//                    'defaults' => array(
-//                        'controller' => 'Pizza/Controller/Membre',
-//                        'action' => 'setting',
-//                    ),
-//                ),
-//            ),
             'connect' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -241,9 +228,6 @@ return array(
             'pizza/admincommandes/editlocalisation' => __DIR__ . '/../view/pizza/index/editlocalisation.phtml',
             'pizza/gestioncommandes/index' => __DIR__ . '/../view/pizza/index/gestioncommandes.phtml',
         ),
-//        'template_path_stack' => array(
-//            __DIR__ . '/../view',
-//        ),
         'template_path_stack' => array(
             'pizza' => __DIR__ . '/../view',
         ),        'strategies' => array(
