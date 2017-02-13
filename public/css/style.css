@@ -1,3 +1,8 @@
+.alert-warning {
+    list-style-type: none;
+    text-align: center;
+}
+
 .thumbnaildiv { height: 18em;
     overflow: hidden; }
 

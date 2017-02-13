@@ -12,6 +12,7 @@ use Zend\InputFilter\InputFilter;
  * @ORM\Table(name="tb_users") 
  * @ORM\Entity(repositoryClass="Pizza\Repository\Repository") */
 class TbUsers implements InputFilterAwareInterface {
+protected $inputFilter;
 
     public function setInputFilter(\Zend\InputFilter\InputFilterInterface $inputFilter) {
         $this->inputFilter = $inputFilter;
@@ -19,7 +20,9 @@ class TbUsers implements InputFilterAwareInterface {
 
     // La méthode qui nous intéresse
     public function getInputFilter() {
+        
         if (!$this->inputFilter) {
+            
             $inputFilter = new InputFilter();
 
             $inputFilter->add(
@@ -64,7 +67,49 @@ class TbUsers implements InputFilterAwareInterface {
                         ),
                     )
             );
+            
             $inputFilter->add(
+                    array(
+                        'name' => 'password', // Le nom du champ / de la propriété
+                        'required' => true, // Champ requis                        
+                        'error_message' => 'Veuillez indiquer un mot de passe assez long',
+                        'validators' => array(// Des validateurs
+                            array(
+                                'name' => 'StringLength', // Pour vérifier la longueur du nom
+                                'options' => array(
+                                    'encoding' => 'UTF-8', // La chaine devra être en UTF-8
+                                    'min' => 5, // et une longueur entre 1 et 100
+                                    'max' => 10,
+                                ),
+                            ),
+                        ),
+                    )
+            );
+            
+            $inputFilter->add(
+                    array(
+                        'name' => 'numrue', // Le nom du champ / de la propriété
+                        'required' => true, // Champ requis                        
+                        'error_message' => 'Veuillez indiquer une adresse',
+                        'filters' => array(// Différents filtres:
+                            array('name' => 'StripTags'), // Pour retirer les tags HTML
+                            array('name' => 'StringTrim'), // Pour supprimer les espaces avant et apres le nom
+                        ),
+                        'validators' => array(// Des validateurs
+                            array(
+                                'name' => 'StringLength', // Pour vérifier la longueur du nom
+                                'options' => array(
+                                    'encoding' => 'UTF-8', // La chaine devra être en UTF-8
+                                    'min' => 5, // et une longueur entre 1 et 100
+                                    'max' => 50,
+                                ),
+                            ),
+                        ),
+                    )
+            );
+            
+            $inputFilter->add(
+                    
                     array(
                         'name' => 'email',
                         'validators' => array(                            
@@ -81,12 +126,22 @@ class TbUsers implements InputFilterAwareInterface {
                                 'options' => array(
                                     'pattern' => '/^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/',
                                     'messages' => array(
-                                        \Zend\Validator\Regex::NOT_MATCH => 'Veuillez indiquer une adresse correcte',
+                                        \Zend\Validator\Regex::NOT_MATCH => 'Le format de l\'adresse email est incorrect',
                                     )
                                 ),
                             ),
-                        ),
-            ));
+//                            array( 
+//                                'name' => 'DoctrineModule\Validator\NoObjectExists',
+//                                'options' => array(
+//                                    'object_repository' => $entityManager->getRepository('Pizza\Entity\TbUsers'),
+//                                    'fields' => 'email',
+//                                    ),
+//                                ),
+                            ),
+                        )
+                    
+                   
+            );
 
             $this->inputFilter = $inputFilter;
         }

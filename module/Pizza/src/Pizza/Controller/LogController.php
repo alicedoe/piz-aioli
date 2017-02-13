@@ -46,6 +46,7 @@ class LogController extends AbstractActionController {
             $newuser = new \Pizza\Entity\TbUsers();
 
             // Et on passe l'InputFilter de Category au formulaire
+            
             $logform->setInputFilter($newuser->getInputFilter());
             $logform->setData($requestpost->getPost());
 
