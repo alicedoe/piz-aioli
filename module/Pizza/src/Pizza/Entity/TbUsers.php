@@ -3,14 +3,86 @@
 namespace Pizza\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilter;
 
 /**
  * TbUsers
  *
  * @ORM\Table(name="tb_users") 
  * @ORM\Entity(repositoryClass="Pizza\Repository\Repository") */
-class TbUsers
+class TbUsers  implements InputFilterAwareInterface
 {
+    
+    public function setInputFilter(\Zend\InputFilter\InputFilterInterface $inputFilter)
+    {
+        $this->inputFilter = $inputFilter;
+    }
+    
+    // La méthode qui nous intéresse
+    public function getInputFilter()
+    {
+        if (!$this->inputFilter) {
+            $inputFilter = new InputFilter();
+
+            $inputFilter->add(
+                array(
+                    'name'     => 'nom',               // Le nom du champ / de la propriété
+                    'required' => true,                 // Champ requis
+                    'filters'  => array(                // Différents filtres:
+                        array('name' => 'StripTags'),   // Pour retirer les tags HTML
+                        array('name' => 'StringTrim'),  // Pour supprimer les espaces avant et apres le nom
+                    ),
+                    'validators' => array(              // Des validateurs
+                        array(
+                            'name'    => 'StringLength',// Pour vérifier la longueur du nom
+                            'options' => array(
+                                'encoding' => 'UTF-8',  // La chaine devra être en UTF-8
+                                'min'      => 5,        // et une longueur entre 1 et 100
+                                'max'      => 30,
+                            ),
+                        ),
+                    ),
+                )
+            );
+            $inputFilter->add(
+                array(
+                    'name'     => 'prenom',               // Le nom du champ / de la propriété
+                    'required' => true,                 // Champ requis
+                    'filters'  => array(                // Différents filtres:
+                        array('name' => 'StripTags'),   // Pour retirer les tags HTML
+                        array('name' => 'StringTrim'),  // Pour supprimer les espaces avant et apres le nom
+                    ),
+                    'validators' => array(              // Des validateurs
+                        array(
+                            'name'    => 'StringLength',// Pour vérifier la longueur du nom
+                            'options' => array(
+                                'encoding' => 'UTF-8',  // La chaine devra être en UTF-8
+                                'min'      => 5,        // et une longueur entre 1 et 100
+                                'max'      => 30,
+                            ),
+                        ),
+                    ),
+                )
+            );
+    
+            $this->inputFilter = $inputFilter;
+        }
+    
+        return $this->inputFilter;
+    }
+    
+    public function exchangeArray($data)
+    {
+        $this->userId = (isset($data['userId'])) ? $data['userId'] : null;
+        $this->email = (isset($data['email'])) ? $data['email'] : null;
+        $this->password = (isset($data['password'])) ? $data['password'] : null;
+        $this->nom = (isset($data['nom'])) ? $data['nom'] : null;
+        $this->prenom = (isset($data['prenom'])) ? $data['prenom'] : null;
+        $this->numrue = (isset($data['numrue'])) ? $data['numrue'] : null;
+        $this->role = 'user';
+    }
+
     /**
      * @var integer
      *

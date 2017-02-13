@@ -34,47 +34,38 @@ class LogController extends AbstractActionController {
     }
 
     public function adduserAction() {
-        
-        if ($this->getRequest()->isPost()) {
+
+        $logform = new LogForm($this->service);
+
+        // On récupère l'objet Request
+        $requestpost = $this->getRequest();
+
+
+        // On vérifie si le formulaire a été posté
+        if ($requestpost->isPost()) {
             $newuser = new \Pizza\Entity\TbUsers();
-            $dataForm = $this->getRequest()->getPost();
-            
-            $userexist = $this->service->getRepository('Pizza\Entity\TbUsers')->findOneBy(array('email' => $dataForm['email']));
-            
-            if (count($userexist) == 0) {
-            
-            $ville = $this->service->getRepository('\Pizza\Entity\TbVilles')->find($dataForm['ville']);
-            
-            $newuser->setVille($ville);
-            $newuser->setEmail($dataForm['email']);
-            $newuser->setPassword($dataForm['password']);
-            $newuser->setPrenom($dataForm['prenom']);
-            $newuser->setNumrue($dataForm['numrue']);
-            $newuser->setNom($dataForm['nom']);
-            $newuser->setRole("user");
-            
-            $this->service->persist($newuser);
-            $this->service->flush();
 
-            $request = $this->service->getRepository('Pizza\Entity\TbUsers')->findOneBy(array('email' => $dataForm['email']));
+            // Et on passe l'InputFilter de Category au formulaire
+            $logform->setInputFilter($newuser->getInputFilter());
+            $logform->setData($requestpost->getPost());
 
-                $_SESSION['userId'] = $request->getUserId();
-                $_SESSION['email'] = $request->getEmail();
-                $_SESSION['role'] = $request->getRole();
-                return $this->redirect()->toRoute('index');
+            // Si le formulaire est valide
+            if ($logform->isValid()) {
+
+                $data = $logform->getData();
+                $newuser->exchangeArray($data);
+                $ville = $this->service->getRepository('\Pizza\Entity\TbVilles')->find($data['ville']);
+                $newuser->setVille($ville);
+                $this->service->persist($newuser);
+                $this->service->flush();
             }
-            
-            
- 
         }
-        
-        elseif (isset($_SESSION['userId'])) { return $this->redirect()->toRoute('userdetail'); } else {
-       $form = new LogForm($this->service);
-        $viewData['form'] = $form;
-        return new ViewModel($viewData);
-            }
 
-       
+        return new ViewModel(
+                array(
+            'form' => $logform
+                )
+        );
     }
 
 }
