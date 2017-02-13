@@ -26,6 +26,7 @@ class TbUsers implements InputFilterAwareInterface {
                     array(
                         'name' => 'nom', // Le nom du champ / de la propriété
                         'required' => true, // Champ requis
+                        'error_message' => 'Veuillez indiquer votre nom',
                         'filters' => array(// Différents filtres:
                             array('name' => 'StripTags'), // Pour retirer les tags HTML
                             array('name' => 'StringTrim'), // Pour supprimer les espaces avant et apres le nom
@@ -45,7 +46,8 @@ class TbUsers implements InputFilterAwareInterface {
             $inputFilter->add(
                     array(
                         'name' => 'prenom', // Le nom du champ / de la propriété
-                        'required' => true, // Champ requis
+                        'required' => true, // Champ requis                        
+                        'error_message' => 'Veuillez indiquer votre prénom',
                         'filters' => array(// Différents filtres:
                             array('name' => 'StripTags'), // Pour retirer les tags HTML
                             array('name' => 'StringTrim'), // Pour supprimer les espaces avant et apres le nom
@@ -62,25 +64,25 @@ class TbUsers implements InputFilterAwareInterface {
                         ),
                     )
             );
-            $this->add(
+            $inputFilter->add(
                     array(
                         'name' => 'email',
-                        'required' => true,
-                        'validators' => array(
+                        'validators' => array(                            
                             array(
-                                'name' => 'email',
+                                'name' => 'NotEmpty',
                                 'options' => array(
-                                    'message' => array(
-                                        \Zend\Validator\EmailAddress::INVALID => "Invalid type given. String expected",
-                                        \Zend\Validator\EmailAddress::INVALID_FORMAT => "The input is not a valid email address. Use the basic format local-part@hostname",
-                                        \Zend\Validator\EmailAddress::INVALID_HOSTNAME => "'%hostname%' is not a valid hostname for the email address",
-                                        \Zend\Validator\EmailAddress::INVALID_MX_RECORD => "'%hostname%' does not appear to have any valid MX or A records for the email address",
-                                        \Zend\Validator\EmailAddress::INVALID_SEGMENT => "'%hostname%' is not in a routable network segment. The email address should not be resolved from public network",
-                                        \Zend\Validator\EmailAddress::DOT_ATOM => "'%localPart%' can not be matched against dot-atom format",
-                                        \Zend\Validator\EmailAddress::QUOTED_STRING => "'%localPart%' can not be matched against quoted-string format",
-                                        \Zend\Validator\EmailAddress::INVALID_LOCAL_PART => "'%localPart%' is not a valid local part for the email address",
-                                        \Zend\Validator\EmailAddress::LENGTH_EXCEEDED => "The input exceeds the allowed length",
+                                    'messages' => array(
+                                        \Zend\Validator\NotEmpty::IS_EMPTY => _("Veuillez remplir la case email"),
                                     ),
+                                ),
+                            ),
+                            array(
+                                'name' => 'Regex',
+                                'options' => array(
+                                    'pattern' => '/^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/',
+                                    'messages' => array(
+                                        \Zend\Validator\Regex::NOT_MATCH => 'Veuillez indiquer une adresse correcte',
+                                    )
                                 ),
                             ),
                         ),

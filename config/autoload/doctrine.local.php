@@ -9,7 +9,7 @@ return array(
                     'host'     => 'localhost',
                     'port'     => '',
                     'user'     => 'root',
-                    'password' => 'root',
+                    'password' => '',
                     'dbname'   => 'pizzaioli',
                     'charset' => 'utf8',
                 )))));
