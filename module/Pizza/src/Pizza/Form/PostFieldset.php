@@ -75,7 +75,7 @@ class PostFieldset extends Fieldset  implements InputFilterAwareInterface
                     array(
                         'name' => 'password', // Le nom du champ / de la propriété
                         'required' => true, // Champ requis                        
-                        'error_message' => 'Veuillez indiquer un mot de passe assez long',
+                        'error_message' => 'Veuillez indiquer un mot de passe entre 5 & 10 caractères',
                         'filters' => array(// Différents filtres:
                             array('name' => 'StripTags'), // Pour retirer les tags HTML
                             array('name' => 'StringTrim'), // Pour supprimer les espaces avant et apres le nom
