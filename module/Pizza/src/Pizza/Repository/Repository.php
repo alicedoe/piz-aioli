@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityRepository;
 
 class Repository extends EntityRepository
 {
+
+    
     public function findAll()
     {
         return $this->findBy(array(), array('nom' => 'ASC'));
