@@ -3,8 +3,10 @@
 namespace Pizza\Form;
 
 use Zend\Form\Form;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilter;
 
-class UserForm extends Form {
+class UserForm extends Form implements InputFilterAwareInterface {
 
     public function __construct($entityManager, $set) {
 

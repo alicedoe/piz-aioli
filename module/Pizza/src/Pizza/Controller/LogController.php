@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Pizza\Service\ControllerServiceInterface;
 use Pizza\Form\LogForm;
+use Pizza\Form\PostFieldset;
 
 class LogController extends AbstractActionController {
 
@@ -27,10 +28,15 @@ class LogController extends AbstractActionController {
                 return $this->redirect()->toRoute('index');
             }
         }
-
-        $form = new LogForm($this->service);
+        
+        if (isset($_SESSION['userId'])) {
+            return $this->redirect()->toRoute('userdetail');
+        } else {
+            $form = new LogForm($this->service);
         $viewData['form'] = $form;
         return new ViewModel($viewData);
+        }
+        
     }
 
     public function adduserAction() {
@@ -46,19 +52,23 @@ class LogController extends AbstractActionController {
             $newuser = new \Pizza\Entity\TbUsers();
 
             // Et on passe l'InputFilter de Category au formulaire
-            
-            $logform->setInputFilter($newuser->getInputFilter());
+            $PostFieldset = new PostFieldset($this->service);
+            $logform->setInputFilter($PostFieldset->getInputFilter());
             $logform->setData($requestpost->getPost());
-
             // Si le formulaire est valide
             if ($logform->isValid()) {
-
                 $data = $logform->getData();
                 $newuser->exchangeArray($data);
                 $ville = $this->service->getRepository('\Pizza\Entity\TbVilles')->find($data['ville']);
                 $newuser->setVille($ville);
                 $this->service->persist($newuser);
                 $this->service->flush();
+                
+                $_SESSION['userId']= $newuser->getUserId();
+                $_SESSION['email'] = $newuser->getEmail();
+                $_SESSION['role'] = $newuser->getRole();
+                
+                return $this->redirect()->toRoute('userdetail');
             }
         }
 
