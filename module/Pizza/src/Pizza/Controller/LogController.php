@@ -29,13 +29,11 @@ class LogController extends AbstractActionController {
             }
         }
         
-        if (isset($_SESSION['userId'])) {
-            return $this->redirect()->toRoute('userdetail');
-        } else {
+
             $form = new LogForm($this->service);
         $viewData['form'] = $form;
         return new ViewModel($viewData);
-        }
+        
         
     }
 
