@@ -2,7 +2,7 @@
 PHPT runner supports XFAIL section
 --FILE--
 <?php
-{syntaxError}
+
 echo "Should not see this";
 ?>
 --XFAIL--

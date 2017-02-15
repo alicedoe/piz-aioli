@@ -5,4 +5,4 @@ PHPT for testing coverage
 require __DIR__ . '/../bootstrap.php';
 $coveredClass = new CoveredClass();
 $coveredClass->publicMethod();
---EXPECT--
+

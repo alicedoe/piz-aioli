@@ -24,7 +24,12 @@ class MyAclPlugin extends AbstractPlugin {
     public function doAuthorization($e) {
         session_start();
 
-        if (isset($_SESSION['role'])) { $sesscontainer = new SessionContainer(); $sesscontainer->role = $_SESSION['role'];}
+        if (isset($_SESSION['role'])) { $sesscontainer = new SessionContainer(); $sesscontainer->role = $_SESSION['role'];} else if (!isset($_SESSION['role']))
+        {
+            $sesscontainer = new SessionContainer(); $sesscontainer->role = "anonymous";
+        }
+        
+        echo  $sesscontainer->role;
         // set ACL
         $acl = new Acl();
         $acl->deny(); // on by default
@@ -47,7 +52,16 @@ class MyAclPlugin extends AbstractPlugin {
         $acl->deny('anonymous', 'zfcadmin');
         $acl->deny('user', 'zfcadmin');
         $acl->allow('admin', 'zfcadmin');
-
+        
+        $acl->allow('anonymous', 'pizza', 'log:connect');
+        $acl->deny('user', 'pizza', 'log:connect');
+        $acl->deny('admin', 'pizza', 'log:connect');
+        $acl->allow('user', 'pizza', 'membre:detail');
+        $acl->allow('admin', 'pizza', 'membre:detail');
+        $acl->deny('anonymous', 'pizza', 'membre:detail');
+        $acl->deny('user', 'pizza', 'log:adduser');
+        $acl->deny('admin', 'pizza', 'log:adduser');
+        $acl->allow('anonymous', 'pizza', 'log:adduser');
 
         $controller = $e->getTarget();
         $controllerClass = get_class($controller);

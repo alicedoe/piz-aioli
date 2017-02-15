@@ -18,17 +18,7 @@ return array(
                         'action' => 'pizofday',
                     ),
                 ),
-            ),
-            'chat' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route' => '/chat',
-                    'defaults' => array(
-                        'controller' => 'Pizza\Controller\Index',
-                        'action' => 'chat',
-                    ),
-                ),
-            ),            
+            ),         
             'listcart' => array(
                 'type'    => 'segment',
                 'options' => array(
