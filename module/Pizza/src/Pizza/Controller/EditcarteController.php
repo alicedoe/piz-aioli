@@ -38,7 +38,11 @@ class EditcarteController extends AbstractActionController {
          
          if ($requestpost->isPost()) {
              
-            $data = $requestpost->getPost();
+            $data = array_merge_recursive(
+                        $requestpost->getPost()->toArray(),
+                    $requestpost->getFiles()->toArray()
+                   );
+
             $base = $this->service->getRepository('\Pizza\Entity\TbBases')->find($data['base']);
             foreach ($data['ingredients'] as $ingredientId) {
                 $ingredients[] = $this->service->getRepository('\Pizza\Entity\TbIngredients')->find($ingredientId);
@@ -51,29 +55,19 @@ class EditcarteController extends AbstractActionController {
             $pizzaToEdit->setPizza_au_menu($data['pizza_au_menu']);
             $pizzaToEdit->setPrix($data['prix']);
             
-            if ($requestpost->getFiles()) {
-$size = new Size(array('min' => 2000)); //minimum bytes filesize
-
+           $nomimage = $pizzaToEdit->getUrl_img();
+            $file = $this->params()->fromFiles('fileupload');
+            
+            
+            if (count($files['fileupload']) > 0) {
+            $size = new Size(array('min' => 2000));
             $adapter = new \Zend\File\Transfer\Adapter\Http();
             //validator can be more than one...
-            $adapter->setValidators(array($size), $File['name']);
+            $adapter->setValidators(array($size), $files['fileupload']['size']);
 
             if (!$adapter->isValid()) {
-                $dataError = $adapter->getMessages();
-                $error = array();
-                foreach ($dataError as $key => $row) {
-                    $error[] = $row;
-                } //set formElementErrors
-                $form->setMessages(array('fileupload' => $error));
-            } else {
-                $adapter->setDestination(ROOT_PATH.'/public/img/img_pizzas');
-                echo ROOT_PATH;
-
-                if ($adapter->receive($File['name'])) {
-                    
-                    $tmp_name = str_replace("/tmp/", "", $data['fileupload']['tmp_name']);
-                    $pizzaToEdit->setUrl_img($tmp_name."_".$data['fileupload']['name']);
-                }
+             
+             echo "toto";
             }
             }
                         
@@ -98,7 +92,6 @@ $size = new Size(array('min' => 2000)); //minimum bytes filesize
                         $this->getRequest()->getPost()->toArray(),           
                        $this->getRequest()->getFiles()->toArray()
                    );
-
             foreach ($dataForm['ingredients'] as $ingredientId) {
                 $ingredients[] = $this->service->getRepository('\Pizza\Entity\TbIngredients')->find($ingredientId);
             }
@@ -113,7 +106,7 @@ $size = new Size(array('min' => 2000)); //minimum bytes filesize
                 }
                 
             }
-            
+            $File    = $this->params()->fromFiles('fileupload');
             $base = $this->service->getRepository('\Pizza\Entity\TbBases')->find($dataForm['base']);
             $newpizza->setIngredients($ingredients);
             $newpizza->setBase($base);
@@ -123,24 +116,24 @@ $size = new Size(array('min' => 2000)); //minimum bytes filesize
             $newpizza->setPrix($dataForm['prix']);
 
             $size = new Size(array('min' => 2000)); //minimum bytes filesize
-
             $adapter = new \Zend\File\Transfer\Adapter\Http();
             //validator can be more than one...
             $adapter->setValidators(array($size), $File['name']);
-
             if (!$adapter->isValid()) {
+
                 $dataError = $adapter->getMessages();
                 $error = array();
                 foreach ($dataError as $key => $row) {
                     $error[] = $row;
                 } //set formElementErrors
                 $form->setMessages(array('fileupload' => $error));
-            } else {
-                $adapter->setDestination(ROOT_PATH.'/public/img/img_pizzas');
-                echo ROOT_PATH;
-
+            } else {                 
+           
+                $adapter->setDestination(ROOT_PATH.'public/img/img_pizzas');
+                
+                
                 if ($adapter->receive($File['name'])) {
-                    
+                     var_dump($File);
                     $tmp_name = str_replace("/tmp/", "", $dataForm['fileupload']['tmp_name']);
                     $newpizza->setUrl_img($tmp_name."_".$dataForm['fileupload']['name']);
                 }
@@ -151,5 +144,6 @@ $size = new Size(array('min' => 2000)); //minimum bytes filesize
         $viewData['form'] = $form;
         return new ViewModel($viewData);
     }
+    
 
 }
