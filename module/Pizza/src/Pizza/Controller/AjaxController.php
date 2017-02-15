@@ -68,6 +68,23 @@ class AjaxController extends AbstractActionController {
             'success' => true,
         ));
     }
+    
+    public function setpizofdayAction() {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        $removepizofday = $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->findOneBy(array('pizofday' => 1));
+        $removepizofday->setPizofday(0);
+        $this->service->persist($removepizofday);
+        $this->service->flush();
+        $setpizofday = $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->findOneBy(array('id' => $id));
+        $setpizofday->setPizofday(1);
+        $this->service->persist($setpizofday);
+        $this->service->flush();
+
+        return new JsonModel(array(
+            'success' => true,
+            'id' => $id
+        ));
+    }
 
     public function listcartAction() {
         if (!isset($_SESSION['panier']['pizza'])) {

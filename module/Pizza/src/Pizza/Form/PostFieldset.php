@@ -63,7 +63,7 @@ class PostFieldset extends Fieldset  implements InputFilterAwareInterface
                                 'name' => 'StringLength', // Pour vérifier la longueur du nom
                                 'options' => array(
                                     'encoding' => 'UTF-8', // La chaine devra être en UTF-8
-                                    'min' => 5, // et une longueur entre 1 et 100
+                                    'min' => 3, // et une longueur entre 1 et 100
                                     'max' => 30,
                                 ),
                             ),

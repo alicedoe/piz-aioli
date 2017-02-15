@@ -89,7 +89,6 @@ class LogController extends AbstractActionController {
 
         // On vérifie si le formulaire a été posté
         if ($requestpost->isPost()) {
-            $newuser = new \Pizza\Entity\TbUsers();
 
             // Et on passe l'InputFilter de Category au formulaire
             $PostFieldset = new PostFieldset($this->service);
@@ -98,15 +97,14 @@ class LogController extends AbstractActionController {
             // Si le formulaire est valide
             if ($logform->isValid()) {
                 $data = $logform->getData();
-                $newuser->exchangeArray($data);
+                $userToEdit->exchangeArray($data);
                 $ville = $this->service->getRepository('\Pizza\Entity\TbVilles')->find($data['ville']);
-                $newuser->setVille($ville);
-                $this->service->persist($newuser);
-                $this->service->flush();
+                $userToEdit->setVille($ville);
                 
-                $_SESSION['userId']= $newuser->getUserId();
-                $_SESSION['email'] = $newuser->getEmail();
-                $_SESSION['role'] = $newuser->getRole();
+                $this->service->persist($userToEdit);
+                $this->service->flush();
+
+                $_SESSION['email'] = $userToEdit->getEmail();
                 
                 return $this->redirect()->toRoute('userdetail');
             }

@@ -90,3 +90,15 @@ location.reload();
 }
     });
     }
+    
+    function setpizofday(id) {
+
+    $.ajax({
+        url: "/backend/setpizofday/" + id,
+        dataType: 'json',
+        complete : function(){
+location.reload();
+
+}
+    });
+    }

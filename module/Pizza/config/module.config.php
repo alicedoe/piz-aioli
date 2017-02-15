@@ -107,9 +107,9 @@ return array(
                         ),
                     ),
                     'editpizza' => array(
-                        'type' => 'literal',
+                        'type' => 'segment',
                         'options' => array(
-                            'route' => '/editpizza',
+                            'route' => '/editpizza[/:id]',
                             'defaults' => array(
                                 'controller' => 'Pizza\Controller\Editcarte',
                                 'action' => 'editpizza',
@@ -133,6 +133,16 @@ return array(
                             'defaults' => array(
                                 'controller' => 'Pizza\Controller\Ajax',
                                 'action' => 'deletepizza',
+                            ),
+                        ),
+                    ),
+                    'setpizofday' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/setpizofday[/:id]',
+                            'defaults' => array(
+                                'controller' => 'Pizza\Controller\Ajax',
+                                'action' => 'setpizofday',
                             ),
                         ),
                     ),
@@ -224,7 +234,7 @@ return array(
             'pizza/log/edituser' => __DIR__ . '/../view/pizza/index/register.phtml',
             'pizza/membre/detail' => __DIR__ . '/../view/pizza/index/detail.phtml',
             'pizza/editcarte/index' => __DIR__ . '/../view/pizza/index/editcarte.phtml',
-            'pizza/editcarte/editpizza' => __DIR__ . '/../view/pizza/index/editpizza.phtml',
+            'pizza/editcarte/editpizza' => __DIR__ . '/../view/pizza/index/editcarte.phtml',
             'pizza/editcarte/admincartepizzas' => __DIR__ . '/../view/pizza/index/adminpizza.phtml',
             'pizza/admincommandes/editlocalisation' => __DIR__ . '/../view/pizza/index/editlocalisation.phtml',
             'pizza/gestioncommandes/index' => __DIR__ . '/../view/pizza/index/gestioncommandes.phtml',

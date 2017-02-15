@@ -7,24 +7,35 @@ use Zend\Form\Form;
 
 class FormAddPizza extends Form {
 
-    public function __construct($objectManager) {
+    public function __construct($objectManager, $set) {
 
         parent::__construct("FormAddPizza");
         $this->setAttribute('method', 'post');
         $this->setAttribute('enctype','multipart/form-data');
-
+        
+        $this->add(array(
+                'name' => 'id', // Nom du champ
+                'attributes' => array(
+                  'value' => $set->getId(),
+                ),
+                'type' => 'Hidden',      // Type du champ
+            ));
         $this->add(array(
             'name' => 'nom',
             'attributes' => array(
                 'id' => 'nom',
                 'class' => 'form-control input-sm',
-                'placeholder' => 'Nom de la pizza'
+                'placeholder' => 'Nom de la pizza',
+                    'value' => $set->getNom(),
             )
         ));
 
         $this->add(array(
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'base',
+            'attributes' => array(
+                'value' => $set->getBase(),
+            ),
             'options' => array(
                 'label' => 'base',
                 'object_manager' => $objectManager,
@@ -34,7 +45,10 @@ class FormAddPizza extends Form {
         ));
         $this->add(array(
             'type' => 'DoctrineModule\Form\Element\ObjectMultiCheckbox',
-            'name' => 'ingredients',
+            'name' => 'ingredients',            
+            'attributes' => array(
+                'value' => $set->getIngredients(),
+            ),
             'options' => array(
                 'label' => 'Please Select Your Availablity',
                 'object_manager' => $objectManager,
@@ -46,6 +60,9 @@ class FormAddPizza extends Form {
          $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'pizofday',
+             'attributes' => array(
+                'value' => $set->getPizofday(),
+            ),
             'options' => array(
                 'label' => 'Pizza du jour',
                 'checked_value' => 1,
@@ -56,6 +73,9 @@ class FormAddPizza extends Form {
          $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'pizza_au_menu',
+             'attributes' => array(
+                'value' => $set->getPizza_au_menu(),
+            ),
             'options' => array(
                 'label' => 'Pizza à la carte',
                 'checked_value' => 1,
@@ -71,7 +91,8 @@ class FormAddPizza extends Form {
              'attributes' => array(
                 'id' => 'prix',
                 'class' => 'form-control',
-                'placeholder' => 'Prix de la pizza'
+                'placeholder' => 'Prix de la pizza',
+                 'value' => $set->getPrix(),
             )
         ));
 
@@ -79,7 +100,7 @@ class FormAddPizza extends Form {
         $this->add(array(
             'name' => 'fileupload',
             'attributes' => array(
-                'type'  => 'file',
+                'type'  => 'file'
             ),
             'options' => array(
                 'label' => 'Photo d\'illustration',

@@ -20,7 +20,7 @@ class TbUsers {
         $this->nom = (isset($data['nom'])) ? $data['nom'] : null;
         $this->prenom = (isset($data['prenom'])) ? $data['prenom'] : null;
         $this->numrue = (isset($data['numrue'])) ? $data['numrue'] : null;
-        $this->role = 'user';
+        $this->role = (isset($_SESSION['role'])) ? $_SESSION['role'] : 'user';
     }
 
     /**

@@ -328,6 +328,12 @@
 
 .thumbnail, .img-thumbnail {
     overflow: hidden;
+    padding: 15px 10px 0 10px;
+}
+
+.pizofday {
+    /*background-color: #da4453;*/
+    background-color: rgba(255, 0, 0, 0.3);
 }
 
 .thumbnail>img, .thumbnail a>img {

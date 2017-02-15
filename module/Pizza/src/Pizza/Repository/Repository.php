@@ -28,7 +28,7 @@ class Repository extends EntityRepository
     
          public function findLocalisation() {
         return $this->findBy(array("id" => 1));
-    } 
+    }
     
     public function cartepizzas()
     {
