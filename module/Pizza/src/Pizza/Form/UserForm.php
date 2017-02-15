@@ -13,7 +13,7 @@ class UserForm extends Form implements InputFilterAwareInterface {
         parent::__construct('User');
         $this->setAttribute('method', 'post');
         $this->add(array(
-            'name' => 'id_user', // Nom du champ
+            'name' => 'userId', // Nom du champ
             'type' => 'Hidden', // Type du champ
         ));
 

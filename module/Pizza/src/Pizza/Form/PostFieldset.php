@@ -115,7 +115,9 @@ class PostFieldset extends Fieldset  implements InputFilterAwareInterface
                     )
             );
             
-            $inputFilter->add(
+            if (!isset($_SESSION['userId'])) { 
+                
+                $inputFilter->add(
                     
                     array(
                         'name' => 'email',
@@ -153,7 +155,41 @@ class PostFieldset extends Fieldset  implements InputFilterAwareInterface
                         )
                     
                    
+            ); } else {
+                
+                $inputFilter->add(
+                    
+                    array(
+                        'name' => 'email',
+                        'filters' => array(// Différents filtres:
+                            array('name' => 'StripTags'), // Pour retirer les tags HTML
+                            array('name' => 'StringTrim'), // Pour supprimer les espaces avant et apres le nom
+                        ),
+                        'validators' => array(                            
+                            array(
+                                'name' => 'NotEmpty',
+                                'options' => array(
+                                    'messages' => array(
+                                        \Zend\Validator\NotEmpty::IS_EMPTY => _("Veuillez remplir la case email"),
+                                    ),
+                                ),
+                            ),
+                            array(
+                                'name' => 'Regex',
+                                'options' => array(
+                                    'pattern' => '/^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/',
+                                    'messages' => array(
+                                        \Zend\Validator\Regex::NOT_MATCH => 'Le format de l\'adresse email est incorrect',
+                                    )
+                                ),
+                            ),
+                            
+                            ),
+                        )              
+                   
             );
+                
+            }
 
             $this->inputFilter = $inputFilter;
         }

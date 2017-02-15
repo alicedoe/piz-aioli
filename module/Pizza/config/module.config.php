@@ -179,6 +179,16 @@ return array(
                     ),
                 ),
             ),
+            'edituser' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/edituser',
+                    'defaults' => array(
+                        'controller' => 'Pizza\Controller\Log',
+                        'action' => 'edituser',
+                    ),
+                ),
+            ),
         ),
     ),
     'controllers' => array(
@@ -211,6 +221,7 @@ return array(
             'pizza/index/localisation' => __DIR__ . '/../view/pizza/index/localisation.phtml',
             'pizza/log/connect' => __DIR__ . '/../view/pizza/index/connect.phtml',
             'pizza/log/adduser' => __DIR__ . '/../view/pizza/index/register.phtml',
+            'pizza/log/edituser' => __DIR__ . '/../view/pizza/index/register.phtml',
             'pizza/membre/detail' => __DIR__ . '/../view/pizza/index/detail.phtml',
             'pizza/editcarte/index' => __DIR__ . '/../view/pizza/index/editcarte.phtml',
             'pizza/editcarte/editpizza' => __DIR__ . '/../view/pizza/index/editpizza.phtml',

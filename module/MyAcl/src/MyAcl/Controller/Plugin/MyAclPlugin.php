@@ -12,15 +12,6 @@ class MyAclPlugin extends AbstractPlugin {
 
     protected $sesscontainer;
 
-//
-//    private function getSessContainer() {
-//        
-//        if (!$this->sesscontainer) {
-//            $this->sesscontainer = new SessionContainer('zftutorial');
-//        }
-//        return $this->sesscontainer;
-//    }
-
     public function doAuthorization($e) {
         session_start();
 
@@ -28,8 +19,7 @@ class MyAclPlugin extends AbstractPlugin {
         {
             $sesscontainer = new SessionContainer(); $sesscontainer->role = "anonymous";
         }
-        
-        echo  $sesscontainer->role;
+
         // set ACL
         $acl = new Acl();
         $acl->deny(); // on by default
@@ -62,6 +52,9 @@ class MyAclPlugin extends AbstractPlugin {
         $acl->deny('user', 'pizza', 'log:adduser');
         $acl->deny('admin', 'pizza', 'log:adduser');
         $acl->allow('anonymous', 'pizza', 'log:adduser');
+        $acl->allow('user', 'pizza', 'log:edituser');
+        $acl->allow('admin', 'pizza', 'log:edituser');
+        $acl->deny('anonymous', 'pizza', 'log:edituser');
 
         $controller = $e->getTarget();
         $controllerClass = get_class($controller);
