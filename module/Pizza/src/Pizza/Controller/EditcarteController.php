@@ -64,10 +64,13 @@ class EditcarteController extends AbstractActionController {
         $pizzaToEdit->setPizofday($dataForm['pizofday']);
         $pizzaToEdit->setPizza_au_menu($dataForm['pizza_au_menu']);
         $pizzaToEdit->setPrix($dataForm['prix']);
+        
+        if ($file['name']) {
 
         $adapter = new \Zend\File\Transfer\Adapter\Http();
         $adapter->addValidator('Size', false, array('min' => '10kB', 'max' => '2MB'));
         $adapter->addValidator('Extension', false, 'jpg,png,gif');
+        $adapter->addValidator('NotExists', true, 'does_exist');
 
         if (!$adapter->isValid()) {
 
@@ -94,10 +97,10 @@ class EditcarteController extends AbstractActionController {
 
                 $pizzaToEdit->setUrl_img($tmp_name);
             }
-            $this->service->persist($pizzaToEdit);
+            
+        } } $this->service->persist($pizzaToEdit);
             $this->service->flush();
             return $this->redirect()->toRoute('zfcadmin/adminpizza');
-        }
     }
 
     public function indexAction() {
