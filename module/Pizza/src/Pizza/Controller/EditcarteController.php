@@ -25,57 +25,80 @@ class EditcarteController extends AbstractActionController {
     
     public function editpizzaAction() {
         
-        $requestpost = $this->getRequest();
-        
+        $requestpost = $this->getRequest();        
         if (!$requestpost->isPost()) {
         $id = (int) $this->params()->fromRoute('id', 0);
          $pizzaToEdit = $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->findOneBy(array('id' => $id));
          $pizzaForm = new FormAddPizza($this->service, $pizzaToEdit);
          $viewData['form'] = $pizzaForm;
-           $viewData['urlimage'] = $pizzaToEdit->getUrl_img();
+         $viewData['urlimage'] = $pizzaToEdit->getUrl_img();
         return new ViewModel($viewData);
         }
-         
-         if ($requestpost->isPost()) {
-             
-            $data = array_merge_recursive(
-                        $requestpost->getPost()->toArray(),
-                    $requestpost->getFiles()->toArray()
+        
+        if ($requestpost->isPost()) {
+            $dataForm    = array_merge_recursive(
+                        $requestpost->getPost()->toArray(),           
+                       $requestpost->getFiles()->toArray()
                    );
-
-            $base = $this->service->getRepository('\Pizza\Entity\TbBases')->find($data['base']);
-            foreach ($data['ingredients'] as $ingredientId) {
+            foreach ($dataForm['ingredients'] as $ingredientId) {
                 $ingredients[] = $this->service->getRepository('\Pizza\Entity\TbIngredients')->find($ingredientId);
             }
-            $pizzaToEdit = $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->findOneBy(array('id' => $data['id']));
+            
+            if ($dataForm['pizofday']==1) {
+                $pizofday = $this->service->getRepository('\Pizza\Entity\TbPizzaPatron')->pizofday();
+                
+                foreach ( $pizofday as $pizza ) {
+                    $pizza->setPizofday("0");
+                    $this->service->persist($pizza);
+                    $this->service->flush();
+                } }   
+        } 
+            $file    = $this->params()->fromFiles('fileupload');
+             
+            $base = $this->service->getRepository('\Pizza\Entity\TbBases')->find($dataForm['base']);
+            $pizzaToEdit = $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->findOneBy(array('id' => $dataForm['id']));
             $pizzaToEdit->setIngredients($ingredients);
             $pizzaToEdit->setBase($base);
-            $pizzaToEdit->setNom($data['nom']);
-            $pizzaToEdit->setPizofday($data['pizofday']);
-            $pizzaToEdit->setPizza_au_menu($data['pizza_au_menu']);
-            $pizzaToEdit->setPrix($data['prix']);
-            
-           $nomimage = $pizzaToEdit->getUrl_img();
-            $file = $this->params()->fromFiles('fileupload');
-            
-            
-            if (count($files['fileupload']) > 0) {
+            $pizzaToEdit->setNom($dataForm['nom']);
+            $pizzaToEdit->setPizofday($dataForm['pizofday']);
+            $pizzaToEdit->setPizza_au_menu($dataForm['pizza_au_menu']);
+            $pizzaToEdit->setPrix($dataForm['prix']);
+
             $size = new Size(array('min' => 2000));
+            
             $adapter = new \Zend\File\Transfer\Adapter\Http();
-            //validator can be more than one...
-            $adapter->setValidators(array($size), $files['fileupload']['size']);
+            $adapter->setValidators(array($size), $file['name']);
+            
 
             if (!$adapter->isValid()) {
-             
-             echo "toto";
-            }
-            }
-                        
-            $this->service->persist($pizzaToEdit);
-            $this->service->flush();
-            return $this->redirect()->toRoute('zfcadmin/adminpizza');           
-            
-        }
+
+                $dataError = $adapter->getMessages();
+                $error = array();
+                foreach ($dataError as $key => $row) {
+                $error[] = $row;
+                
+                } 
+                $form->setMessages(array('fileupload' => $error));
+            } 
+            else {
+                $tmp_name = $pizzaToEdit->getUrl_img();
+                $imgpath = ROOT_PATH.'public/img/img_pizzas/';
+                $file_name = $imgpath.$tmp_name;
+                var_dump($file_name);
+                $adapter->addFilter('Rename',
+                   array('target' => $file_name,
+                         'overwrite' => true));
+                $rtn['success'] = $adapter->receive();
+                if ($adapter->receive()) {
+                     
+                    
+                    $pizzaToEdit->setUrl_img($tmp_name);
+                }
+                 $this->service->persist($pizzaToEdit);
+                 $this->service->flush();
+                 return $this->redirect()->toRoute('zfcadmin/adminpizza');
+                 
+            }   
         
     }
     
@@ -106,7 +129,7 @@ class EditcarteController extends AbstractActionController {
                 }
                 
             }
-            $File    = $this->params()->fromFiles('fileupload');
+            $file    = $this->params()->fromFiles('fileupload');
             $base = $this->service->getRepository('\Pizza\Entity\TbBases')->find($dataForm['base']);
             $newpizza->setIngredients($ingredients);
             $newpizza->setBase($base);
@@ -115,29 +138,35 @@ class EditcarteController extends AbstractActionController {
             $newpizza->setPizza_au_menu($dataForm['pizza_au_menu']);
             $newpizza->setPrix($dataForm['prix']);
 
-            $size = new Size(array('min' => 2000)); //minimum bytes filesize
+            $size = new Size(array('min' => 2000));
             $adapter = new \Zend\File\Transfer\Adapter\Http();
-            //validator can be more than one...
-            $adapter->setValidators(array($size), $File['name']);
+            $adapter->setValidators(array($size), $file['name']);
+            
+
             if (!$adapter->isValid()) {
 
                 $dataError = $adapter->getMessages();
                 $error = array();
                 foreach ($dataError as $key => $row) {
-                    $error[] = $row;
-                } //set formElementErrors
+                $error[] = $row;
+                
+                } 
                 $form->setMessages(array('fileupload' => $error));
             } else {                 
            
                 $adapter->setDestination(ROOT_PATH.'public/img/img_pizzas');
-                
-                
-                if ($adapter->receive($File['name'])) {
-                     var_dump($File);
-                    $tmp_name = str_replace("/tmp/", "", $dataForm['fileupload']['tmp_name']);
-                    $newpizza->setUrl_img($tmp_name."_".$dataForm['fileupload']['name']);
+                $rtn['success'] = $adapter->receive();
+                var_dump($rtn['success']);
+                if ($adapter->receive()) {
+                     
+                    $tmp_name = str_replace("/tmp/", "", $file['tmp_name']);
+                    $newpizza->setUrl_img($tmp_name."_".$file['name']);
                 }
+                
             }
+            
+            
+            
             $this->service->persist($newpizza);
                     $this->service->flush();
         }
