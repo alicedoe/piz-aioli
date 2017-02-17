@@ -6,11 +6,15 @@ use Doctrine\ORM\EntityRepository;
 
 class Repository extends EntityRepository
 {
-
-    
-    public function findAll()
+ 
+    public function adminPizza()
     {
-        return $this->findBy(array(), array('nom' => 'ASC'));
+        $qb = $this->createQueryBuilder('a');
+
+         $qb->orderBy('a.base', 'DESC');
+        return $qb
+          ->getQuery()
+          ->getResult();
     }
     
     public function pizofday()
@@ -26,7 +30,7 @@ class Repository extends EntityRepository
           ->getResult();
     }
     
-         public function findLocalisation() {
+    public function findLocalisation() {
         return $this->findBy(array("id" => 1));
     }
     

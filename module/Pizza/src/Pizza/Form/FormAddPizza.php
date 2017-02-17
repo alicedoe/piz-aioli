@@ -115,6 +115,15 @@ class FormAddPizza extends Form {
                'class' => 'btn btn-default btn-wide btn-success'
             )
         ));
+        
+        $this->add(array(
+            'name' => 'submit2',
+            'type' => 'Zend\Form\Element\Submit',
+            'attributes' => array(
+                'value' => 'Modifier la pizza',
+               'class' => 'btn btn-default btn-wide btn-success'
+            )
+        ));
     }
 
 }

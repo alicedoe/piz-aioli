@@ -1,7 +1,5 @@
-
-    <div class="row">
-
-    
+<div class="row">
+   
     <?php
     $form = $this->form;
     $form->prepare();
@@ -12,7 +10,8 @@
     ?> 
 <div class="panel panel-primary">
     <div class="panel panel-default">
- <div class="col-md-12 panel-heading text-center">Ajouter une pizza</div>
+ <div class="col-md-12 panel-heading text-center"><?php if (isset($edition))
+          {echo "Modifier la pizza";} else {echo "Ajouter une pizza";} ?></div>
  <div class="col-md-12 panel-body"><div class="col-md-3"></div><div class="col-md-6 text-center">
   <?php echo $this->formInput($form->get('nom')); ?>
     </div><div class="col-md-3"></div></div>
@@ -50,11 +49,21 @@
   <?php echo $this->formInput($form->get('prix')); ?>
 </div>
     </div><div class="col-md-3"></div></div>
-     <div class="col-md-12 panel-body"><div class="col-md-3"></div><div class="col-md-6 text-center">
-  <?php echo $this->formSubmit($form->get('submit')); ?>
-    </div><div class="col-md-3"></div></div>
+         
+    <div class="col-md-12 panel-body">
+        <div class="col-md-3"></div>
+        <div class="col-md-2"><a class="btn btn-danger center-block" href="/backend/adminpizza">Annuler</a></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2"><?php if (isset($edition)) {echo $this->formSubmit($form->get('submit2'));} else {echo $this->formSubmit($form->get('submit'));} ?></div>
+        <div class="col-md-3"></div>            
+    </div>
 </div>
         <?php echo $this->formElementErrors($form->get('fileupload'), array('class' => 'alert alert-warning', 'role' => 'alert'));?>
         <?php echo $this->form()->closeTag(); ?>
 
 </div>
+    
+    
+    
+</div>
+

@@ -10,13 +10,16 @@
                 if($base != $base2 ) { echo "<div class=\"page-header col-xs-12 col-lg-12 text-center\"><h1>".$this->escapeHtml($pizza->getBase()->getNom())."</h1></div>"; } ?>
     
   <div class="col-sm-6 col-md-4">
-    <div class="thumbnail <?php if ($pizza->getPizofday() == 1) { echo "pizofday"; } ?>">
+    <div class="thumbnail">
+        <?php if ($pizza->getPizofday() == 1) { echo "<span id=\"pizzofday\">PizzaVedette</span>"; } if ($pizza->getPizza_au_menu() == 0) { echo "<span id=\"pasaumenu\">Pizza désactivée</span>"; } ?>
+        
       <div class="thumbnaildiv"><img src="<?php echo ROOT_PATH . "../img/img_pizzas/" . $this->escapeHtml($pizza->getUrl_img()); ?>" alt="<?php echo $this->escapeHtml($pizza->getNom());?>"></div>
       <div class="caption">
         <h3><?php echo $this->escapeHtml($pizza->getNom());?></h3>
         <p class="group inner list-group-item-text" id="ingredientslist">Les ingrédients : <?php foreach ($pizza->getIngredients() as $ingredient) : echo " ".$ingredient->getNom() . "-"; endforeach; ?></p>
-        <p class="lead"><?php echo $this->escapeHtml($pizza->getPrix());?>€</p>
-        <p><a href="#" class="btn btn-success" onclick="setpizofday(<?php echo $this->escapeHtml($pizza->getId());?>)" role="button">Pizza du jour</a> <a href="editpizza/<?php echo $this->escapeHtml($pizza->getId());?>" class="btn btn-default" role="button">Editer</a> <a href="#" class="btn btn-danger" onclick="deletepizza(<?php echo $this->escapeHtml($pizza->getId());?>)" role="button">Supprimer</a></p>
+        <p class="lead"><?php echo $this->escapeHtml($pizza->getPrix());?>€ <?php if ($pizza->getPizza_au_menu() == 0) { echo "<a href=\"#\" id=\"aumenu\" class=\"btn btn-success\" onclick=setaumenu(" . $this->escapeHtml($pizza->getId()) . ") role=\"button\">Activer la pizza</a>"; } else { echo "<a href=\"#\" id=\"aumenu\" class=\"btn btn-warning\" onclick=unsetmenu(" . $this->escapeHtml($pizza->getId()) . ") role=\"button\">Desact. la pizza</a>"; }?></p>
+      
+        <p><?php if ($pizza->getPizza_au_menu() == 1) { echo "<a href=\"#\" class=\"btn btn-success\" onclick=setpizofday(" . $this->escapeHtml($pizza->getId()) . ") role=\"button\"><span class=\"glyphicon glyphicon-star\"></span>Pizza du jour</a>"; } ?> <a href="editpizza/<?php echo $this->escapeHtml($pizza->getId());?>" class="btn btn-default" role="button"><span class="glyphicon glyphicon-pencil"></span>Editer</a> <a href="#" class="btn btn-danger" onclick="deletepizza(<?php echo $this->escapeHtml($pizza->getId());?>)" role="button"><span class="glyphicon glyphicon-trash"></span>Supprimer</a></p>
       </div>
     </div>
   </div>

@@ -102,3 +102,29 @@ location.reload();
 }
     });
     }
+    
+    function setaumenu(id) {
+
+    $.ajax({
+        url: "/backend/setaumenu/" + id,
+        dataType: 'json',
+        complete : function(){
+location.reload();
+
+}
+    });
+    }
+    
+       function unsetmenu(id) {
+
+    $.ajax({
+        url: "/backend/unsetmenu/" + id,
+        dataType: 'json',
+        complete : function(){
+location.reload();
+
+}
+    });
+    }
+    
+    

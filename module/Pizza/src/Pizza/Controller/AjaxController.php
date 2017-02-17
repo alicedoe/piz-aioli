@@ -85,6 +85,32 @@ class AjaxController extends AbstractActionController {
             'id' => $id
         ));
     }
+    
+    public function setaumenuAction() {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        $setaumenu = $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->findOneBy(array('id' => $id));
+        $setaumenu->setPizza_au_menu(1);
+        $this->service->persist($setaumenu);
+        $this->service->flush();
+
+        return new JsonModel(array(
+            'success' => true,
+            'id' => $id
+        ));
+    }
+    
+        public function unsetmenuAction() {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        $setaumenu = $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->findOneBy(array('id' => $id));
+        $setaumenu->setPizza_au_menu(0);
+        $this->service->persist($setaumenu);
+        $this->service->flush();
+
+        return new JsonModel(array(
+            'success' => true,
+            'id' => $id
+        ));
+    }
 
     public function listcartAction() {
         if (!isset($_SESSION['panier']['pizza'])) {

@@ -1,5 +1,9 @@
-<h1><?php echo $this->translate('A 404 error occurred') ?></h1>
-<h2><?php echo $this->message ?></h2>
+<div class="quatrecent">
+<h2>Oooooooooooooooops vous êtes sur une page ... </h2>
+<h1>4<img src="<?php echo ROOT_PATH . "../img/404.png" ?>">4</h1>
+<h2>la page n'existe pas (ou plus) :-(</h2>
+</div>
+
 
 <?php if (isset($this->reason) && $this->reason): ?>
 
@@ -24,7 +28,10 @@ switch ($this->reason) {
 }
 ?>
 
-<p><?php echo $reasonMessage ?></p>
+<div class="quatrecent">
+<h3>Pour celles & ceux qui aiment la technique :</h3>
+<h4><?php echo $reasonMessage ?></h4>
+</div>
 
 <?php endif ?>
 
@@ -100,7 +107,10 @@ if (isset($this->controller_class)
 
 <?php else: ?>
 
-<h3><?php echo $this->translate('No Exception available') ?></h3>
+<div class="quatrecent">
+<h3>No Exception available</h3>
+<p>(En gros on a pas plus d'info)</p>
+</div>
 
 <?php endif ?>
 

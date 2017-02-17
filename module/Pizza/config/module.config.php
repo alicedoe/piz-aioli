@@ -146,6 +146,26 @@ return array(
                             ),
                         ),
                     ),
+                    'setaumenu' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/setaumenu[/:id]',
+                            'defaults' => array(
+                                'controller' => 'Pizza\Controller\Ajax',
+                                'action' => 'setaumenu',
+                            ),
+                        ),
+                    ),
+                    'unsetmenu' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/unsetmenu[/:id]',
+                            'defaults' => array(
+                                'controller' => 'Pizza\Controller\Ajax',
+                                'action' => 'unsetmenu',
+                            ),
+                        ),
+                    ),
                     'editlocalisation' => array(
                         'type' => 'literal',
                         'options' => array(
@@ -244,6 +264,17 @@ return array(
         ),        'strategies' => array(
             'ViewJsonStrategy',
         ),   ),
+'translator' => array(
+    'locale' => 'es_ES',
+    'translation_file_patterns' => array(
+        array(
+            'type'     => 'gettext',
+            'base_dir' => __DIR__ . '/../language',
+            'pattern'  => '%s.mo',
+            'text_domain' => __NAMESPACE__,
+        ),
+    ),
+), 
     
     'doctrine' => array(
         'driver' => array(

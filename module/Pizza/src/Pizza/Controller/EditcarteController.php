@@ -20,22 +20,27 @@ class EditcarteController extends AbstractActionController {
     public function admincartepizzasAction() {
 
         return new ViewModel(array(
-            'listepizza_page' => $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->cartepizzas(),
+            'listepizza_page' => $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->adminPizza(),
         ));
     }
 
     public function editpizzaAction() {
-
+        
+        
         $requestpost = $this->getRequest();
+        
+        //Si pas post
         if (!$requestpost->isPost()) {
             $id = (int) $this->params()->fromRoute('id', 0);
             $pizzaToEdit = $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->findOneBy(array('id' => $id));
             $pizzaForm = new FormAddPizza($this->service, $pizzaToEdit);
             $viewData['form'] = $pizzaForm;
             $viewData['urlimage'] = $pizzaToEdit->getUrl_img();
+            $viewData['edition'] = true;
             return new ViewModel($viewData);
         }
-
+        
+        //Si post
         if ($requestpost->isPost()) {
             $dataForm = array_merge_recursive(
                     $requestpost->getPost()->toArray(), $requestpost->getFiles()->toArray()
@@ -55,7 +60,6 @@ class EditcarteController extends AbstractActionController {
             }
         }
         $file = $this->params()->fromFiles('fileupload');
-
         $base = $this->service->getRepository('\Pizza\Entity\TbBases')->find($dataForm['base']);
         $pizzaToEdit = $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->findOneBy(array('id' => $dataForm['id']));
         $pizzaToEdit->setIngredients($ingredients);
@@ -65,42 +69,49 @@ class EditcarteController extends AbstractActionController {
         $pizzaToEdit->setPizza_au_menu($dataForm['pizza_au_menu']);
         $pizzaToEdit->setPrix($dataForm['prix']);
         
+        //S'il y a un fichier
         if ($file['name']) {
 
         $adapter = new \Zend\File\Transfer\Adapter\Http();
         $adapter->addValidator('Size', false, array('min' => '10kB', 'max' => '2MB'));
         $adapter->addValidator('Extension', false, 'jpg,png,gif');
         $adapter->addValidator('NotExists', true, 'does_exist');
-
-        if (!$adapter->isValid()) {
-
-            $dataError = $adapter->getMessages();
-            $error = array();
-            foreach ($dataError as $key => $row) {
-                $error[] = $row;
-            }
-            $pizzaToEdit = $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->findOneBy(array('id' => $dataForm['id']));
-            $pizzaForm = new FormAddPizza($this->service, $pizzaToEdit);
-            $pizzaForm->setMessages(array('fileupload' => $error));
-            $viewData['form'] = $pizzaForm;
-            $viewData['urlimage'] = $pizzaToEdit->getUrl_img();
-            return new ViewModel($viewData);
-        } else {
-            $tmp_name = $pizzaToEdit->getUrl_img();
-            $imgpath = ROOT_PATH . 'public/img/img_pizzas/';
-            $file_name = $imgpath . $tmp_name;
-            $adapter->addFilter('Rename', array('target' => $file_name,
-                'overwrite' => true));
-            $rtn['success'] = $adapter->receive();
-            if ($adapter->receive()) {
-
-
-                $pizzaToEdit->setUrl_img($tmp_name);
-            }
             
-        } } $this->service->persist($pizzaToEdit);
-            $this->service->flush();
-            return $this->redirect()->toRoute('zfcadmin/adminpizza');
+            //Si le fichier à des problèmes
+            if (!$adapter->isValid()) {
+
+                $dataError = $adapter->getMessages();
+                $error = array();
+                foreach ($dataError as $key => $row) {
+                    $error[] = $row;
+                }
+                $pizzaToEdit = $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->findOneBy(array('id' => $dataForm['id']));
+                $pizzaForm = new FormAddPizza($this->service, $pizzaToEdit);
+                $pizzaForm->setMessages(array('fileupload' => $error));
+                $viewData['form'] = $pizzaForm;
+                $viewData['urlimage'] = $pizzaToEdit->getUrl_img();
+                $viewData['edition'] = true;
+                return new ViewModel($viewData);
+            } 
+            //Sinon le fichier est ok
+            else {
+                $tmp_name = $pizzaToEdit->getUrl_img();
+                $imgpath = ROOT_PATH . 'public/img/img_pizzas/';
+                $file_name = $imgpath . $tmp_name;
+                $adapter->addFilter('Rename', array('target' => $file_name,
+                    'overwrite' => true));
+                $rtn['success'] = $adapter->receive();
+                if ($adapter->receive()) {
+
+
+                    $pizzaToEdit->setUrl_img($tmp_name);
+                }
+
+            } 
+        
+        } $this->service->persist($pizzaToEdit);
+        $this->service->flush();
+        return $this->redirect()->toRoute('zfcadmin/adminpizza');
     }
 
     public function indexAction() {
@@ -148,12 +159,15 @@ class EditcarteController extends AbstractActionController {
                 foreach ($dataError as $key => $row) {
                     $error[] = $row;
                 }
-                $form->setMessages(array('fileupload' => $error));
+                $newformpizza = new FormAddPizza($this->service, $newpizza);
+                $newformpizza->setMessages(array('fileupload' => $error));
+                $viewData['form'] = $newformpizza;
+                return new ViewModel($viewData);
+                
             } else {
 
                 $adapter->setDestination(ROOT_PATH . 'public/img/img_pizzas');
                 $rtn['success'] = $adapter->receive();
-                var_dump($rtn['success']);
                 if ($adapter->receive()) {
 
                     $tmp_name = str_replace("/tmp/", "", $file['tmp_name']);

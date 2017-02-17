@@ -1,6 +1,6 @@
 <?php echo $this->doctype(); ?>
 
-<html lang="en">
+<html lang="fr">
     <head>
         <meta charset="utf-8">
         <?php echo $this->headTitle('Pizzaioli ') ?>
@@ -36,9 +36,9 @@
     </head>
     <body>
         <header><img src="<?php echo ROOT_PATH . "../img/bannierepizzaioli.png" ?>" alt="banniere Pizzaioli"></header>
-        <p id="cart" onclick="mycart()"><img src="<?php echo ROOT_PATH . "../img/cart.png" ?>" alt="panier commande"></p>
+        <p id="cart" onclick="mycart()"><img src="<?php echo ROOT_PATH . "../img/cart.png" ?>" alt="panier commande">
         <span class="badge cart"></span>
-        
+        </p>
         <!-- Popup ajouter au panier -->
         <div class="modal blur-effect" id="popup">
             <div class="popup-content">
@@ -65,13 +65,13 @@
         </div>
         <div class="container">
             <nav vcenter>
-                <a href="/" class="btn btn-primary btn-danger col-lg-3"><span class="glyphicon glyphicon-home"></span> Accueil</a>
-                <a href="/cartepizzas" class="btn btn-primary btn-danger col-lg-3"><span class="glyphicon glyphicon-list-alt"></span> Nos pizzas</a>
-                <a href="/localisation" class="btn btn-primary btn-danger col-lg-3"><span class="glyphicon glyphicon-map-marker"></span> Venir nous voir</a>
+                <a href="/" class="btn btn-primary btn-danger col-lg-3 col-md-3 col-xs-3 col-sm-3"><span class="glyphicon glyphicon-home"></span> Accueil</a>
+                <a href="/cartepizzas" class="btn btn-primary btn-danger col-lg-3 col-md-3 col-xs-3 col-sm-3"><span class="glyphicon glyphicon-list-alt"></span> Nos pizzas</a>
+                <a href="/localisation" class="btn btn-primary btn-danger col-lg-3 col-md-3 col-xs-3 col-sm-3"><span class="glyphicon glyphicon-map-marker"></span> Venir nous voir</a>
 <?php if (isset($_SESSION['email'])) {
-    echo "<a href=\"/detail\" class=\"btn btn-primary btn-danger col-lg-3\"><span class=\"glyphicon glyphicon-user\"></span> Mon compte</a>";
+    echo "<a href=\"/detail\" class=\"btn btn-primary btn-danger col-lg-3 col-md-3 col-xs-3 col-sm-3\"><span class=\"glyphicon glyphicon-user\"></span> Mon compte</a>";
 } else {
-    echo "<a href=\"/connect\" class=\"btn btn-primary btn-danger col-lg-3\"><span class=\"glyphicon glyphicon-user\"></span> Se connecter / S'inscrire</a>";
+    echo "<a href=\"/connect\" class=\"btn btn-primary btn-danger col-lg-3 col-md-3 col-xs-3 col-sm-3\"><span class=\"glyphicon glyphicon-user\"></span> Se connecter / S'inscrire</a>";
 } ?>
             </nav>
 <?php echo $this->content; ?>
