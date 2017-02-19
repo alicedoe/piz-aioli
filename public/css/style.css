@@ -338,8 +338,8 @@
 
 .pasaumenu {  background-color:black; opacity:0.7; z-index:1;  filter:alpha(opacity=70); }
 
-.thumbnail #pizzofday, #pasaumenu { position: absolute;
-    top: 10%;
+.thumbnail #pizzofday, #pasaumenu {     position: absolute;
+    bottom: 70%;
     left: 1%;
     font-size: 3em;
     color: #da4453;
@@ -371,6 +371,9 @@
 #articles img { }
 
 /*Liste de pizzas*/
+
+#addapizza { background-color: #8cc152; color: white; text-align: center; padding: 15px;}
+#addapizza span { font-size: 3em;}
 
 .panel-success {
     font-size: 12px;

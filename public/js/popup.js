@@ -15,7 +15,7 @@ $().ready(function() {
     });
 
    
-})
+});
 
 function addtocart(id) {
 
@@ -68,10 +68,10 @@ function emptycart() {
         url: "/emptycart",
         dataType: 'json',
   complete : function(emptycart){
-
-cartnb=emptycart.responseJSON.cartnb;
-    $('.cart').html("");
-$('.cart').append(cartnb);
+//
+//cartnb=emptycart.responseJSON.cartnb;
+$('p').remove('.cart');
+$('.cart').html("");
 
 }
     });
