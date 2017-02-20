@@ -348,7 +348,6 @@
     height: 1.5em;
     width: 100%;
     text-align: center;
-    border: #8cc152 1px solid;
     font-family: sans-serif;}
 .thumbnail .caption a {
     text-align: center;
@@ -372,8 +371,8 @@
 
 /*Liste de pizzas*/
 
-#addapizza { background-color: #8cc152; color: white; text-align: center; padding: 15px;}
-#addapizza span { font-size: 3em;}
+#addapizza { background-color: #8cc152; color: white; text-align: center; padding-top: 10px; border-radius: 25px;}
+#addapizza span { font-size: 2em;}
 
 .panel-success {
     font-size: 12px;

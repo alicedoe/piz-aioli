@@ -1,12 +1,14 @@
 <div id="article">
 
 <div id="products" class="row list-group">
-    
-    <a href="/backend/editcarte"><div id="addapizza" class="col-lg-12 center-block">
-
+    <div class="row">
+      <div class="col-lg-5"> </div> 
+    <a href="/backend/editcarte"><div id="addapizza" class="col-lg-2 center-block">
           <span class="glyphicon glyphicon-plus-sign"></span>
-        <h3>Ajouter une pizza</h3>
+        <h4>Ajouter une pizza</h4>
   </div></a>
+       <div class="col-lg-5"> </div> 
+  </div>
     <?php $base2 = null; foreach ($listepizza_page as $pizza) : 
                 
                 $base= $this->escapeHtml($pizza->getBase()->getId()); 
