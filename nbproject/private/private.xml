@@ -4,7 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/var/www/pizzaiolimaison/module/Pizza/src/Pizza/Form/PostFieldset.php</file>
-            <file>file:/var/www/pizzaiolimaison/module/Pizza/src/Pizza/Repository/Repository.php</file>
+            <file>file:/var/www/pizzaiolimaison/module/Pizza/src/Pizza/Controller/LogController.php</file>
+            <file>file:/var/www/pizzaiolimaison/module/Pizza/src/Pizza/Form/LogForm.php</file>
+            <file>file:/var/www/pizzaiolimaison/module/Pizza/src/Pizza/Controller/AjaxController.php</file>
+            <file>file:/var/www/pizzaiolimaison/public/js/popup.js</file>
         </group>
     </open-files>
 </project-private>
