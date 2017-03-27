@@ -70,6 +70,16 @@ return array(
                     ),
                 ),
             ),
+            'detailpizzamenu' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/detailpizzamenu[/:id]',
+                    'defaults' => array(
+                        'controller' => 'Pizza\Controller\Index',
+                        'action' => 'detailpizzamenu',
+                    ),
+                ),
+            ),
             'disconnect' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -243,6 +253,7 @@ return array(
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
+            'pizza/index/detailpizzamenu' => __DIR__ . '/../view/pizza/index/pizza_au_menu.phtml',            
             'pizza/index/pizofday' => __DIR__ . '/../view/pizza/index/pizofday.phtml',
             'pizza/ajax/index' => __DIR__ . '/../view/pizza/index/pizofday.phtml',
             'pizza/index/cartepizzas' => __DIR__ . '/../view/pizza/index/pizza_au_menu.phtml',

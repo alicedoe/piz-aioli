@@ -14,8 +14,6 @@ class IndexController extends AbstractActionController {
     public function __construct(ControllerServiceInterface $service) {
         $this->service = $service->getService();
     }
-    
-    
 
     public function pizofdayAction() {
         $pizzadujour = $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->pizofday();
@@ -31,18 +29,29 @@ class IndexController extends AbstractActionController {
             'listepizza_page' => $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->cartepizzas(),
         ));
     }
-    
-    public function disconnectAction() {
-     if (isset($_SESSION['email'])) { unset($_SESSION); session_destroy();
-     }
 
-     return $this->redirect()->toRoute('index');
-}
-public function localisationAction() {
-        
+    public function disconnectAction() {
+        if (isset($_SESSION['email'])) {
+            unset($_SESSION);
+            session_destroy();
+        }
+
+        return $this->redirect()->toRoute('index');
+    }
+
+    public function detailpizzamenuAction() {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        $pizza = $this->service->getRepository('Pizza\Entity\TbPizzaPatron')->findOneBy(array('id' => $id));
         return new ViewModel(array(
-            'localisation' =>  $this->service->getRepository('Pizza\Entity\TbInfosSociete')->findlocalisation(),
+            'pizzadetail' => $pizza
         ));
-     }
+    }
+
+    public function localisationAction() {
+
+        return new ViewModel(array(
+            'localisation' => $this->service->getRepository('Pizza\Entity\TbInfosSociete')->findlocalisation(),
+        ));
+    }
 
 }

@@ -1,24 +1,79 @@
 <div id="article">
     <div id="products" class="row list-group">
-    <?php $base2 = null; foreach ($listepizza_page as $pizza) : 
-                
-                $base= $this->escapeHtml($pizza->getBase()->getId()); 
-                
-                if($base != $base2 ) { echo "<div class=\"page-header col-xs-12 col-lg-12 text-center\"><h1>".$this->escapeHtml($pizza->getBase()->getNom())."</h1></div>"; } ?>
-    
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <div class="thumbnaildiv"><img src="<?php echo ROOT_PATH . "../img/img_pizzas/" . $this->escapeHtml($pizza->getUrl_img()); ?>" alt="<?php echo $this->escapeHtml($pizza->getNom());?>"></div>
-      <div class="caption">
-        <h3><?php echo $this->escapeHtml($pizza->getNom());?></h3>
-        <p class="group inner list-group-item-text" id="ingredientslist">Les ingrédients : <?php foreach ($pizza->getIngredients() as $ingredient) : echo " ".$ingredient->getNom() . "-"; endforeach; ?></p>
-        <p class="lead"><?php echo $this->escapeHtml($pizza->getPrix());?>€</p>
-        <p><a class="btn btn-success" onclick="popup(<?php echo $this->escapeHtml($pizza->getId());?>)" href="#">Ajouter au panier</a></p>
-      </div>
-    </div>
-  </div>
 
- <?php $base2 = $this->escapeHtml($pizza->getBase()->getId()); endforeach; ?>   
-    
 
-</div></div>
+        <?php
+        if (isset($listepizza_page)) {
+            $base2 = null;
+            foreach ($listepizza_page as $pizza) :
+
+                $base = $this->escapeHtml($pizza->getBase()->getId());
+
+                if ($base != $base2) {
+                    echo "<div class=\"page-header col-xs-12 col-lg-12 text-center\"><h1>" . $this->escapeHtml($pizza->getBase()->getNom()) . "</h1></div>";
+                }
+                ?>
+
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a href="/detailpizzamenu/<?php echo $this->escapeHtml($pizza->getId()); ?>"><div class="thumbnaildiv"><img src="<?php echo ROOT_PATH . "../img/img_pizzas/" . $this->escapeHtml($pizza->getUrl_img()); ?>" alt="<?php echo $this->escapeHtml($pizza->getNom()); ?>"></div>     
+                            <h3><?php echo $this->escapeHtml($pizza->getNom()); ?></h3></a>
+                        <div class="caption">
+                            <p class="group inner list-group-item-text" id="ingredientslist">Les ingrédients : <?php
+                                foreach ($pizza->getIngredients() as $ingredient) : echo " " . $ingredient->getNom() . "-";
+                                endforeach;
+                                ?></p>
+                            <p class="lead"><?php echo $this->escapeHtml($pizza->getPrix()); ?>€</p>
+                            <p><a class="btn btn-success" onclick="popup(<?php echo $this->escapeHtml($pizza->getId()); ?>)" href="#">Ajouter au panier</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <?php
+                $base2 = $this->escapeHtml($pizza->getBase()->getId());
+            endforeach;
+        } else {
+            ?>
+
+
+
+            <div class="col-sm-12 col-md-12">
+                <div class="thumbnail">
+                    <div class="thumbnaildiv"><img src="<?php echo ROOT_PATH . "../img/img_pizzas/" . $this->escapeHtml($pizzadetail->getUrl_img()); ?>" alt="<?php echo $this->escapeHtml($pizzadetail->getNom()); ?>"></div>     
+                    <h3 class="text-center"><?php echo $this->escapeHtml($pizzadetail->getNom()); ?></h3>
+                    <div class="caption text-center">
+                        <p class="group inner list-group-item-text" id="ingredientslist">Les ingrédients : <?php
+                            foreach ($pizzadetail->getIngredients() as $ingredient) : echo " " . $ingredient->getNom() . "-";
+                            endforeach;
+                            ?></p>  <button class="linkedin btn btn-danger">ddd</button>
+                        <p class="lead"><?php echo $this->escapeHtml($pizzadetail->getPrix()); ?>€</p>
+                        <p><a class="btn btn-success" onclick="popup(<?php echo $this->escapeHtml($pizzadetail->getId()); ?>)" href="#">Ajouter au panier</a></p>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <script>
+                $('.linkedin').click(function (event)
+                {
+                $.ajax({                          
+                crossOrigin: true,
+                type: 'Post',
+                url: "https://api.linkedin.com/v1/people/~/shares?format=json&oauth2_access_token=AQUArQJMWYY1sMHyIAGmKMU-m1x_MkjZpwOGnAOvJ1zspv-NJE4XHxCMtGB5Q71hdXj7QroO6nnBP4Ytu2PKLzlYfJgj6CD8TCPkg4_WUlmJUxIe0OKK9OloIwFkZD5hGYzGXtvwfwLuCcIUtrod2D6jXlA-xTSstnGiPZD0OaXELm_OI4w",
+                contentType : 'application/json',
+                dataType: 'json',                        
+                complete: function (result) { }
+                    });
+                }
+                );
+            </script>
+
+<?php } ?> 
+
+
+    </div></div>
+
+
+<!--77tf0xw5xd63ax b9CL6jiCOAu35FTI -->

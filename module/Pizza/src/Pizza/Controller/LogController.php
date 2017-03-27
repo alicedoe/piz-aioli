@@ -39,11 +39,11 @@ class LogController extends AbstractActionController {
 
     public function adduserAction() {
 
-        $logform = new LogForm($this->service);
-
         // On récupère l'objet Request
         $requestpost = $this->getRequest();
-
+        $connectuser = new \Pizza\Entity\TbUsers();
+        $form = new LogForm($this->service, $connectuser);
+        $viewData['form'] = $form;
 
         // On vérifie si le formulaire a été posté
         if ($requestpost->isPost()) {
@@ -70,11 +70,8 @@ class LogController extends AbstractActionController {
             }
         }
 
-        return new ViewModel(
-                array(
-            'form' => $logform
-                )
-        );
+        
+        return new ViewModel($viewData);
     }
     
     public function edituserAction() {

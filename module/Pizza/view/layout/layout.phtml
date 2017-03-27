@@ -16,7 +16,6 @@
         echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
                 ->prependStylesheet($this->basePath() . '/css/style.css')
                 ->prependStylesheet($this->basePath() . '/css/bootflat/css/bootflat.min.css')
-                ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
                 ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
         ?>
 
@@ -24,6 +23,7 @@
         <?php
         echo $this->headScript()
                 ->prependFile($this->basePath() . '/js/popup.js')
+                ->prependFile($this->basePath() . '/js/facebook.js')
                 ->prependFile($this->basePath() . '/js/site.min.js')
                 ->prependFile($this->basePath() . '/js/bootstrap.min.js')
                 ->prependFile($this->basePath() . '/js/jquery.min.js')
@@ -78,8 +78,13 @@
         </div> <!-- /container -->
                 <script>            
             cartnb = <?php echo count($_SESSION['panier']['pizza']); ?>;
-            $('.cart').append( cartnb ); 
+            $('.cart').append( cartnb );
+            
         </script>
+                <!-- Placez cette balise dans l'en-tête ou juste avant la balise de fermeture du corps de texte. -->
+<script src="https://apis.google.com/js/platform.js" async defer>
+  {lang: 'fr'}
+</script>
         <?php echo $this->inlineScript() ?>
     </body>
 </html>
