@@ -4,7 +4,7 @@ Centre de formation Beweb Béziers
 ---
 Le but de ce projet est de prendre en main Zend 2.5.1 via la création d'un site de vente en ligne de pizza
 
-## Logiciel utilisé
+## Logiciels & technologies utilisé
 - Zend 2.5.1 avec ZfcAdmin / Doctrine / zend-developer-tools
 - PHP 5
 - Mysql
