@@ -23,8 +23,6 @@ Le but de ce projet est de prendre en main Zend 2.5.1 via la création d'un site
 
 ## Screenshot
 
-![Alt text](http://www.alicegabbana.com/screenshot/android1.png "Liste des apprenants")
-![Alt text](http://www.alicegabbana.com/screenshot/android2.png "Menu filtre")
-![Alt text](http://www.alicegabbana.com/screenshot/android3.png "Préférences filtre")
+![Alt text](https://raw.githubusercontent.com/alicegabbana/piz-aioli/master/public/img/screenshot_accueil.PNG "Accueil")
 
 ## Merci
